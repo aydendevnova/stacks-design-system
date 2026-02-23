@@ -1,0 +1,216 @@
+---
+sidebar_position: 2
+title: Address Display
+description: A component that displays blockchain addresses in full or shortened format with copy-to-clipboard functionality.
+---
+
+import { Button } from '@site/src/components/ui/button'
+import { Card } from '@site/src/components/ui/card'
+import { InlineAddress, WalletAddressButton, AddressShareCard } from '@site/src/components/ui/address-display'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Address Display
+
+A component that displays blockchain addresses in full or shortened format with copy-to-clipboard functionality. Includes variants for inline display, share cards, and QR code sharing.
+
+## Variants
+
+### Connected Wallet Address (Inline)
+
+A compact inline element showing a truncated wallet address with an icon. Used in headers, navigation bars, or anywhere space is constrained.
+
+<ComponentPreview>
+  <InlineAddress address="SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7" />
+</ComponentPreview>
+
+```tsx
+import { Copy } from "lucide-react"
+
+function ConnectedAddress({ address }: { address: string }) {
+  const short = `${address.slice(0, 6)}...${address.slice(-4)}`
+
+  return (
+    <div className="inline-flex items-center gap-2 rounded-md bg-muted px-5 py-2">
+      <img src="/img/stx-logo.png" alt="" className="size-4" />
+      <span className="font-mono text-sm uppercase tracking-wider">
+        {short}
+      </span>
+    </div>
+  )
+}
+```
+
+### Wallet Address Button
+
+A labeled button variant with the wallet address and a copy icon. Displays "Wallet Address" as a bold label above the truncated address. Click to copy the full address.
+
+<ComponentPreview>
+  <WalletAddressButton address="SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7" />
+</ComponentPreview>
+
+```tsx
+import { useState } from "react"
+import { Copy, Check } from "lucide-react"
+
+function WalletAddressButton({ address }: { address: string }) {
+  const [copied, setCopied] = useState(false)
+  const short = `${address.slice(0, 6)}...${address.slice(-4)}`
+
+  function handleCopy() {
+    navigator.clipboard.writeText(address)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  return (
+    <button onClick={handleCopy} className="flex flex-col items-center gap-0.5 text-foreground">
+      <span className="text-base font-bold">Wallet Address</span>
+      <span className="flex items-center gap-1.5 text-base">
+        {copied
+          ? <Check className="size-4 text-green-600" />
+          : <Copy className="size-4 text-muted-foreground" />}
+        <span className="font-mono">{short}</span>
+      </span>
+    </button>
+  )
+}
+```
+
+### Address Share Card
+
+A card component for sharing a wallet address. The `variant` prop switches between a truncated address display (`"default"`) and a scannable QR code (`"qr"`). Both share the same component — the left action button toggles between "View QR Code" and "Share" depending on the variant.
+
+<div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+  <ComponentPreview>
+    <AddressShareCard
+      address="SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7"
+      variant="default"
+    />
+  </ComponentPreview>
+  <ComponentPreview>
+    <AddressShareCard
+      address="SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7"
+      variant="qr"
+      qrCodeSrc="/img/qr-code.webp"
+    />
+  </ComponentPreview>
+</div>
+
+```tsx
+import { useState } from "react"
+import { Copy, Check, QrCode, Share2 } from "lucide-react"
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+
+interface AddressShareCardProps {
+  address: string
+  variant?: "default" | "qr"
+  qrCodeSrc?: string
+  className?: string
+}
+
+function AddressShareCard({
+  address,
+  variant = "default",
+  qrCodeSrc,
+  className,
+}: AddressShareCardProps) {
+  const [copied, setCopied] = useState(false)
+  const short = `${address.slice(0, 6)}...${address.slice(-4)}`
+
+  function handleCopy() {
+    navigator.clipboard.writeText(address)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  return (
+    <Card className={cn("w-[420px] rounded-[20px] border border-border p-8", className)}>
+      <div
+        className={cn(
+          "flex w-full items-center justify-center rounded-2xl bg-muted",
+          variant === "qr" ? "flex-col gap-3 pb-4 pt-8" : "py-10"
+        )}
+      >
+        {variant === "qr" && qrCodeSrc && (
+          <img
+            src={qrCodeSrc}
+            alt={`QR code for ${short}`}
+            className="size-[172px] rounded-md"
+          />
+        )}
+        <div className="inline-flex items-center gap-3 rounded-md px-6 py-2.5">
+          <img src="/img/stx-logo.png" alt="" className="size-5" />
+          <span className="font-mono text-lg uppercase tracking-wider">
+            {short}
+          </span>
+        </div>
+      </div>
+
+      <div className="mt-6 flex flex-col items-center gap-1 text-center">
+        <h3 className="text-xl font-medium tracking-tight">
+          Share Your Wallet Address
+        </h3>
+        <p className="text-sm text-muted-foreground">
+          Send and receive crypto effortlessly.
+        </p>
+      </div>
+
+      <div className="mt-6 flex gap-3">
+        {variant === "default" ? (
+          <Button rounded="full" className="flex-1 gap-1.5">
+            <QrCode className="size-4" />
+            View QR Code
+          </Button>
+        ) : (
+          <Button variant="outline" rounded="full" className="flex-1 gap-1.5">
+            <Share2 className="size-4" />
+            Share
+          </Button>
+        )}
+        <Button rounded="full" className="flex-1 gap-1.5" onClick={handleCopy}>
+          {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+          {copied ? "Copied!" : "Copy Address"}
+        </Button>
+      </div>
+    </Card>
+  )
+}
+```
+
+## Design Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--muted` | `oklch(0.96 0.005 45)` | Address display background |
+| `--foreground` | `oklch(0.15 0 0)` | Primary text |
+| `--muted-foreground` | `oklch(0.5 0.02 45)` | Description text |
+| `--border` | `oklch(0.9 0.01 45)` | Card border |
+| `--primary` | `oklch(0.7 0.18 45)` | Button fill |
+| `--primary-hover` | `oklch(0.63 0.17 45)` | Button hover |
+
+## Anatomy
+
+The Address Share Card is composed of four sections stacked vertically:
+
+1. **Address container** — Muted-colored rounded rectangle displaying either the truncated address or a QR code with the address below it.
+2. **Heading group** — Centered title ("Share Your Wallet Address") and description ("Send and receive crypto effortlessly.").
+3. **Action bar** — Two full-width pill buttons side by side. The left button toggles between "View QR Code" and "Share" depending on the variant. The right button is always "Copy Address".
+4. **Card wrapper** — White background, 20px border radius, 1px border, 32px padding.
+
+## Usage Guidelines
+
+- Always truncate addresses to show the first 6 and last 4 characters (e.g., `SP2J6Z...9EJ7`) unless the user explicitly requests the full address.
+- The copy-to-clipboard action should copy the **full, untruncated** address and provide visual feedback (brief "Copied!" state).
+- Use the inline variant in navigation and headers where space is limited.
+- Use the card variant in modals, profile pages, and receive flows where the user actively wants to share their address.
+- The QR code variant should encode the full address and be large enough (minimum 172px) for reliable scanning.
+
+## Accessibility
+
+- Copy buttons include visual feedback with a checkmark icon when copied.
+- QR code images include descriptive `alt` text with the truncated address.
+- All interactive elements are keyboard-focusable and activatable with Enter/Space.
+- Button labels use uppercase monospace with sufficient letter-spacing for readability.
+- Color contrast between foreground text and muted backgrounds meets WCAG AA.

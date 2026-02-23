@@ -1,0 +1,87 @@
+---
+description: Workflow for cloning Figma Web3 components into the docs site as live-preview pages
+globs: docs/web3-designs/**
+alwaysApply: false
+---
+
+# Figma → Web3 Designs Workflow
+
+When the user provides a Figma URL to add a new Web3 design component, follow this pipeline.
+
+## 1. Extract from Figma
+
+Call `get_design_context` via the Figma MCP with the `fileKey` and `nodeId` parsed from the URL:
+- `figma.com/design/:fileKey/...?node-id=:nodeId` → convert `-` to `:` in nodeId
+
+Use the returned code, screenshot, and style metadata as reference only — never paste it verbatim.
+
+## 2. Create the live component
+
+Create `src/components/ui/<component-name>.tsx`:
+
+- Import shared primitives: `Button` from `./button`, `Card` from `./card`, `cn` from `@site/src/lib/utils`
+- Import icons from `lucide-react`
+- Import images from `@site/static/img/<asset>` (user must download any needed assets to `static/img/`, use placeholder if necessary)
+- Use the project's design tokens (`--foreground`, `--muted`, `--border`, `--primary`, etc.) via Tailwind classes — never raw hex
+- Extract shared logic into hooks (e.g. `useCopyAddress`)
+- Export all variant components as named exports
+- Accept `className?: string` on every component, merge with `cn()`
+- Provide sensible defaults for demo props (e.g. a sample STX address)
+
+## 3. Create the docs page
+
+Create `docs/web3-designs/<component-name>.mdx`:
+
+```
+---
+sidebar_position: <next number>
+title: <Component Name>
+description: <one-line description from Figma>
+---
+
+import { ComponentA, ComponentB } from '@site/src/components/ui/<component-name>'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+```
+
+### Page structure
+
+1. **H1 + description** — repeat the title and description
+2. **## Variants** — one `### Variant Name` subsection per variant:
+   - Brief prose description of the variant and where to use it
+   - `<ComponentPreview>` with the live component (wrap in `<div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>` when showing multiple variants side by side)
+   - Fenced `tsx` code block showing a clean, self-contained implementation adapted to the project's component library (not the raw Figma output)
+   - When variants share the same component (differing only by a prop), show them side by side with one shared code block
+3. **## Design Tokens** — table of tokens used (Token | Value | Usage)
+4. **## Anatomy** — numbered list of structural sections
+5. **## Usage Guidelines** — bullet list of do's/don'ts
+6. **## Accessibility** — bullet list of a11y considerations
+
+### ComponentPreview
+
+Always wrap live demos in `<ComponentPreview>`. This applies the `.stacks-theme` scope which activates the design system's CSS reset and token variables.
+
+## 4. Register in sidebar
+
+Add the page id to `sidebars.ts` under the `Web3 Designs` category:
+
+```ts
+{
+  type: 'category',
+  label: 'Web3 Designs',
+  items: [
+    'web3-designs/overview',
+    'web3-designs/<component-name>',  // ← add here
+  ],
+}
+```
+
+Also update the table in `docs/web3-designs/overview.mdx` with the new component link and description.
+
+## Key conventions
+
+- **Tokens, not hex**: Map Figma colors to CSS custom properties defined in `src/css/custom.css`
+- **Existing primitives first**: Use `Button`, `Card`, `Dialog`, `Input` from `src/components/ui/` before creating new base components
+- **Button variants**: `default`, `destructive`, `outline`, `secondary`, `ghost`, `link`; `rounded="full"` for pills
+- **Fonts**: DM Sans → `font-sans` / DM Mono → `font-mono` in Tailwind; the docs site uses Space Grotesk / JetBrains Mono
+- **No iframe embeds**: Figma iframes are too slow. Use `<ComponentPreview>` with live React components
+- **Static assets**: Save images to `static/img/` — Figma MCP asset URLs expire after 7 days

@@ -1,0 +1,126 @@
+---
+sidebar_position: 2
+title: Colors
+description: The complete color palette for the Stacks Design System.
+---
+
+import { ColorRow, PaletteCanvas, PaletteSplit } from '@site/src/components/ColorPalette'
+
+# Colors
+
+Click any swatch to copy its hex value.
+
+## Light vs Dark
+
+<PaletteSplit>
+<PaletteCanvas mode="light">
+<ColorRow label="Background" colors={[
+  { name: 'White', hex: '#FFFFFF' },
+  { name: 'Off-White', hex: '#F9FAFB' },
+]} />
+<ColorRow label="Background Inverse" colors={[
+  { name: 'Black', hex: '#141414' },
+]} />
+<ColorRow label="Text" colors={[
+  { name: 'Black', hex: '#141414' },
+]} />
+<ColorRow label="Text Inverse" colors={[
+  { name: 'White', hex: '#FFFFFF' },
+]} />
+</PaletteCanvas>
+<PaletteCanvas mode="dark">
+<ColorRow label="Background" colors={[
+  { name: 'Off-Black', hex: '#303030' },
+  { name: 'Off-White', hex: '#F9FAFB' },
+]} />
+<ColorRow label="Background Inverse" colors={[
+  { name: 'Black', hex: '#141414' },
+]} />
+<ColorRow label="Text" colors={[
+  { name: 'White', hex: '#FFFFFF' },
+]} />
+<ColorRow label="Text Inverse" colors={[
+  { name: 'Black', hex: '#141414' },
+]} />
+</PaletteCanvas>
+</PaletteSplit>
+
+## Neutrals
+
+<PaletteCanvas mode="light">
+<ColorRow label="Sand" colors={[
+  { name: 'Sand 100', hex: '#F3F2F0' },
+  { name: 'Sand 200', hex: '#E6E4E2' },
+  { name: 'Sand 300', hex: '#D8D6D3' },
+  { name: 'Sand 400', hex: '#B7B4B0' },
+  { name: 'Sand 500', hex: '#95918C' },
+  { name: 'Sand 600', hex: '#7B7775' },
+  { name: 'Sand 700', hex: '#605D5D' },
+  { name: 'Sand 800', hex: '#484747' },
+  { name: 'Sand 900', hex: '#303030' },
+]} />
+<ColorRow label="Gray" colors={[
+  { name: 'Gray 100', hex: '#F3F4F6' },
+  { name: 'Gray 200', hex: '#DDE0E4' },
+  { name: 'Gray 300', hex: '#9CA3AF' },
+  { name: 'Gray 400', hex: '#6B7280' },
+  { name: 'Gray 500', hex: '#4B5563' },
+]} />
+</PaletteCanvas>
+
+## Brand
+
+<PaletteCanvas mode="light">
+<ColorRow label="Primary · Blood Orange" colors={[
+  { name: '100', hex: '#FFB765' },
+  { name: '200', hex: '#FEA55A' },
+  { name: '300', hex: '#FE924E' },
+  { name: '400', hex: '#FD763D' },
+  { name: 'Blood Orange', hex: '#FC6432' },
+  { name: '600', hex: '#EB5D2A' },
+  { name: '700', hex: '#CF501D' },
+  { name: '800', hex: '#A73D15' },
+  { name: '900', hex: '#8B300B' },
+]} />
+<ColorRow label="Secondary · Bitcoin Orange" colors={[
+  { name: 'Bitcoin Orange', hex: '#F09D41' },
+]} />
+<ColorRow label="Tertiary · Stacks Purple" colors={[
+  { name: '100', hex: '#B4CEFF' },
+  { name: '200', hex: '#82A3FF' },
+  { name: 'Mid Purple', hex: '#6965FF' },
+  { name: '400', hex: '#4A4EFF' },
+  { name: 'Stacks Purple', hex: '#5546E8' },
+  { name: '600', hex: '#4A47E4' },
+  { name: '700', hex: '#3E33D7' },
+  { name: '800', hex: '#4A3B8C' },
+  { name: '900', hex: '#2C0AA2' },
+]} />
+</PaletteCanvas>
+
+## Status
+
+<PaletteCanvas mode="light">
+<ColorRow label="Success" colors={[
+  { name: 'Success Green', hex: '#24A148' },
+]} />
+<ColorRow label="Error" colors={[
+  { name: 'Error Red', hex: '#DA1E28' },
+  { name: 'Dark Red', hex: '#C01B24' },
+]} />
+</PaletteCanvas>
+
+## Usage
+
+```css
+.card {
+  background-color: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+```
+
+```tsx
+<div className="bg-primary text-white">Blood Orange CTA</div>
+<div className="bg-background text-foreground">Themed surface</div>
+```

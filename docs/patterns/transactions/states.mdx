@@ -1,0 +1,158 @@
+---
+sidebar_position: 1
+title: Transaction States
+description: Patterns for displaying transaction states in Stacks applications.
+---
+
+# Transaction States
+
+Clear communication of transaction states is critical for user confidence in Web3 applications. Users need to understand what's happening with their transactions at all times.
+
+## State Overview
+
+Transactions on Stacks go through several states:
+
+| State | Indicator | Description |
+|-------|-----------|-------------|
+| **Pending** | Clock / Yellow | Transaction submitted, waiting for confirmation |
+| **Processing** | Spinner / Blue | Transaction is being processed by the network |
+| **Confirmed** | Checkmark / Green | Transaction successfully confirmed on-chain |
+| **Failed** | X / Red | Transaction failed or was rejected |
+
+## Pending Transaction
+
+Show a clear pending state with animation to indicate activity:
+
+```tsx
+<Card className="w-[350px]">
+  <CardHeader className="pb-2">
+    <div className="flex items-center justify-between">
+      <CardTitle className="text-base">Transaction Pending</CardTitle>
+      <Loader2 className="size-5 animate-spin text-primary" />
+    </div>
+  </CardHeader>
+  <CardContent className="space-y-4">
+    <div className="space-y-2 text-sm">
+      <div className="flex justify-between">
+        <span className="text-muted-foreground">Amount</span>
+        <span className="font-medium">100 STX</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-muted-foreground">To</span>
+        <span className="font-mono">SP2J6...9EJ7</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-muted-foreground">Status</span>
+        <span className="text-yellow-500">Awaiting confirmation</span>
+      </div>
+    </div>
+    <Button variant="outline" size="sm" className="w-full">
+      View on Explorer
+    </Button>
+  </CardContent>
+</Card>
+```
+
+## Confirmed Transaction
+
+Celebrate successful transactions with clear confirmation:
+
+```tsx
+<Card className="w-[350px] border-green-500/50">
+  <CardHeader className="pb-2">
+    <div className="flex items-center justify-between">
+      <CardTitle className="text-base">Transaction Confirmed</CardTitle>
+      <CheckCircle2 className="size-5 text-green-500" />
+    </div>
+  </CardHeader>
+  <CardContent className="space-y-4">
+    <div className="space-y-2 text-sm">
+      <div className="flex justify-between">
+        <span className="text-muted-foreground">Amount</span>
+        <span className="font-medium">100 STX</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-muted-foreground">To</span>
+        <span className="font-mono">SP2J6...9EJ7</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-muted-foreground">Block</span>
+        <span className="font-mono">#145,892</span>
+      </div>
+    </div>
+    <Button variant="outline" size="sm" className="w-full">
+      View on Explorer
+    </Button>
+  </CardContent>
+</Card>
+```
+
+## Failed Transaction
+
+When transactions fail, provide clear error messages and recovery options:
+
+```tsx
+<Card className="w-[350px] border-destructive/50">
+  <CardHeader className="pb-2">
+    <div className="flex items-center justify-between">
+      <CardTitle className="text-base">Transaction Failed</CardTitle>
+      <XCircle className="size-5 text-destructive" />
+    </div>
+  </CardHeader>
+  <CardContent className="space-y-4">
+    <p className="text-sm text-muted-foreground">
+      The transaction was rejected due to insufficient funds.
+    </p>
+    <div className="flex gap-2">
+      <Button variant="outline" size="sm" className="flex-1">View Details</Button>
+      <Button size="sm" className="flex-1">Try Again</Button>
+    </div>
+  </CardContent>
+</Card>
+```
+
+## Progress Indicator
+
+For multi-step transactions, show progress through the stages:
+
+```tsx
+<div className="w-[350px] space-y-4 rounded-lg border border-border p-4">
+  <div className="flex items-center gap-3">
+    <CheckCircle2 className="size-5 text-green-500 shrink-0" />
+    <div className="flex-1">
+      <p className="text-sm font-medium">Signed</p>
+      <p className="text-xs text-muted-foreground">Transaction signed by wallet</p>
+    </div>
+  </div>
+  <div className="ml-2.5 h-4 w-px bg-border" />
+  <div className="flex items-center gap-3">
+    <Loader2 className="size-5 text-primary animate-spin shrink-0" />
+    <div className="flex-1">
+      <p className="text-sm font-medium">Broadcasting</p>
+      <p className="text-xs text-muted-foreground">Submitting to network...</p>
+    </div>
+  </div>
+  <div className="ml-2.5 h-4 w-px bg-border" />
+  <div className="flex items-center gap-3">
+    <div className="size-5 rounded-full border-2 border-border shrink-0" />
+    <div className="flex-1">
+      <p className="text-sm font-medium text-muted-foreground">Confirming</p>
+      <p className="text-xs text-muted-foreground">Waiting for block confirmation</p>
+    </div>
+  </div>
+</div>
+```
+
+## Best Practices
+
+- Always show the current transaction state
+- Use animation for pending/processing states
+- Provide estimated completion times when possible
+- Include links to block explorers
+- Show clear error messages with recovery options
+- Allow users to dismiss completed transaction notifications
+- Consider toast notifications for background updates
+
+:::info User Education
+Many users are new to blockchain. Consider adding tooltips or links explaining why transactions take time and what confirmations mean.
+:::

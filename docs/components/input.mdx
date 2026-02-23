@@ -1,0 +1,164 @@
+---
+sidebar_position: 5
+title: Input
+description: Displays a form input field for collecting user data.
+---
+
+import { Input } from '@site/src/components/ui/input'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Input
+
+Displays a form input field for collecting user data.
+
+## Basic Input
+
+A simple text input without label or helper text.
+
+<ComponentPreview>
+  <div className="w-[350px]">
+    <Input placeholder="Enter text..." />
+  </div>
+</ComponentPreview>
+
+```tsx
+<Input placeholder="Enter text..." />
+```
+
+## With Label
+
+Add a label to provide context for the input field.
+
+<ComponentPreview>
+  <div className="w-[350px]">
+    <Input label="Email" placeholder="you@example.com" />
+  </div>
+</ComponentPreview>
+
+```tsx
+<Input label="Email" placeholder="you@example.com" />
+```
+
+## With Hint Text
+
+Provide additional guidance with hint text below the input.
+
+<ComponentPreview>
+  <div className="w-[350px]">
+    <Input
+      label="Password"
+      type="password"
+      placeholder="••••••••"
+      hint="Must be at least 8 characters"
+    />
+  </div>
+</ComponentPreview>
+
+```tsx
+<Input
+  label="Password"
+  type="password"
+  placeholder="••••••••"
+  hint="Must be at least 8 characters"
+/>
+```
+
+## Error State
+
+Display validation errors to guide users.
+
+<ComponentPreview>
+  <div className="w-[350px]">
+    <Input
+      label="Email"
+      placeholder="you@example.com"
+      error="Please enter a valid email address"
+    />
+  </div>
+</ComponentPreview>
+
+```tsx
+<Input
+  label="Email"
+  placeholder="you@example.com"
+  error="Please enter a valid email address"
+/>
+```
+
+## Disabled State
+
+Disable inputs when they should not be interactive.
+
+<ComponentPreview>
+  <div className="w-[350px]">
+    <Input label="Locked Field" value="Cannot edit" disabled />
+  </div>
+</ComponentPreview>
+
+```tsx
+<Input label="Locked Field" value="Cannot edit" disabled />
+```
+
+## Web3 Examples
+
+Common input patterns for blockchain applications.
+
+<ComponentPreview column>
+  <div className="flex flex-col gap-4 w-[350px]">
+    <Input
+      label="Recipient Address"
+      placeholder="SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7"
+      hint="Enter a valid Stacks address"
+    />
+    <Input
+      label="Amount (STX)"
+      type="number"
+      placeholder="0.00"
+      hint="Available: 1,234.56 STX"
+    />
+    <Input
+      label="Memo (Optional)"
+      placeholder="Add a note..."
+    />
+  </div>
+</ComponentPreview>
+
+```tsx
+<div className="flex flex-col gap-4 w-[350px]">
+  <Input
+    label="Recipient Address"
+    placeholder="SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7"
+    hint="Enter a valid Stacks address"
+  />
+  <Input
+    label="Amount (STX)"
+    type="number"
+    placeholder="0.00"
+    hint="Available: 1,234.56 STX"
+  />
+  <Input
+    label="Memo (Optional)"
+    placeholder="Add a note..."
+  />
+</div>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | — | Label text displayed above the input |
+| `error` | `string` | — | Error message displayed below the input |
+| `hint` | `string` | — | Helper text displayed below the input when no error |
+| `type` | `string` | `"text"` | HTML input type (text, email, password, number, etc.) |
+| `placeholder` | `string` | — | Placeholder text shown when input is empty |
+| `disabled` | `boolean` | `false` | Disables the input field |
+
+## Accessibility
+
+The Input component is built with accessibility in mind:
+
+- Labels are properly associated with inputs via `htmlFor`
+- Error messages use `aria-describedby` for screen readers
+- Invalid inputs have `aria-invalid="true"`
+- Focus states are clearly visible for keyboard navigation

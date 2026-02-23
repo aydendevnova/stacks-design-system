@@ -1,0 +1,102 @@
+---
+sidebar_position: 1
+title: Accessibility
+description: Guidelines for building accessible Web3 applications with the Stacks Design System.
+---
+
+# Accessibility
+
+Guidelines for building accessible Web3 applications with the Stacks Design System. All components are designed to meet WCAG 2.1 AA standards.
+
+:::info Why Accessibility Matters
+Accessible applications reach more users, including those with disabilities. In Web3, where financial autonomy is a core principle, accessibility ensures everyone can participate in the decentralized economy.
+:::
+
+## Color & Contrast
+
+All color combinations in the Stacks Design System meet WCAG AA contrast requirements (4.5:1 for normal text, 3:1 for large text).
+
+### Testing Contrast
+
+- Use browser dev tools to check contrast ratios
+- Test with the Accessibility Insights extension
+- Verify both light and dark modes
+- Check focused states have sufficient contrast
+
+### Color Independence
+
+Never rely on color alone to convey information. Always pair color with text, icons, or patterns.
+
+**Don't:** Use color-only indication (e.g., a green dot for success). This is not accessible to color-blind users.
+
+**Do:** Use icon + text to provide clear feedback (e.g., "✓ Transaction Confirmed"). This communicates state regardless of color perception.
+
+## Keyboard Navigation
+
+All interactive elements must be accessible via keyboard. Users should be able to navigate your entire application using only Tab, Enter, Space, and Arrow keys.
+
+### Focus Management
+
+- Focus states are visible on all interactive elements
+- Focus order follows logical reading order
+- Modal dialogs trap focus within the modal
+- Focus returns to trigger element when modals close
+
+### Keyboard Shortcuts
+
+The design system components support these keyboard patterns:
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Move to next interactive element |
+| `Shift + Tab` | Move to previous interactive element |
+| `Enter / Space` | Activate buttons, links, checkboxes |
+| `Escape` | Close modals, menus, dropdowns |
+| `Arrow Keys` | Navigate within menus, tabs, sliders |
+
+## Screen Readers
+
+Components include proper ARIA attributes and semantic HTML for screen reader compatibility.
+
+### ARIA Best Practices
+
+- Use semantic HTML elements where possible (`button`, `nav`, `main`)
+- Add `aria-label` for icon-only buttons
+- Use `aria-describedby` for form errors
+- Mark decorative images with `aria-hidden="true"`
+- Announce dynamic content with `aria-live` regions
+
+### Web3-Specific Considerations
+
+Blockchain applications have unique accessibility considerations:
+
+- **Addresses:** Long addresses should be readable by screen readers. Consider adding a "copy address" button with clear labeling.
+- **Transaction Status:** Use `aria-live` regions to announce transaction state changes (pending, confirmed, failed).
+- **Numeric Values:** Ensure token amounts and prices are clearly labeled with their units.
+- **Time-Sensitive Actions:** Provide adequate time for users to review transactions before signing.
+
+## Motion & Animation
+
+Respect user preferences for reduced motion. The design system automatically reduces animations when `prefers-reduced-motion` is set.
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+## Testing Checklist
+
+- ✓ Navigate entire app using keyboard only
+- ✓ Test with screen reader (VoiceOver, NVDA, JAWS)
+- ✓ Verify color contrast meets WCAG AA (4.5:1)
+- ✓ Check focus indicators are visible
+- ✓ Test with browser zoom at 200%
+- ✓ Verify reduced motion is respected
+- ✓ Check all images have alt text
+- ✓ Ensure forms have proper labels
+- ✓ Test transaction flows with assistive tech

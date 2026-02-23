@@ -1,0 +1,83 @@
+---
+sidebar_position: 1
+title: Design Tokens
+description: Core design tokens that power the Stacks Design System.
+---
+
+# Design Tokens
+
+Core design tokens that power the Stacks Design System. Use these tokens to maintain consistency across your application.
+
+:::info CSS Custom Properties
+All tokens are exposed as CSS custom properties (variables) for easy theming and customization.
+:::
+
+## Color Tokens
+
+Color tokens define the visual palette of your application. The system supports both light and dark modes with semantically named tokens.
+
+| Token | Light | Dark | Usage |
+|-------|-------|------|-------|
+| `--background` | `oklch(0.99 0 0)` | `oklch(0.13 0.01 45)` | Page background |
+| `--foreground` | `oklch(0.15 0 0)` | `oklch(0.95 0 0)` | Primary text |
+| `--primary` | `oklch(0.7 0.18 45)` | `oklch(0.72 0.19 45)` | Stacks orange |
+| `--secondary` | `oklch(0.96 0 0)` | `oklch(0.25 0.02 45)` | Secondary surfaces |
+| `--muted` | `oklch(0.96 0.005 45)` | `oklch(0.22 0.015 45)` | Muted elements |
+| `--accent` | `oklch(0.97 0.02 45)` | `oklch(0.25 0.03 45)` | Accent highlights |
+| `--destructive` | `oklch(0.6 0.22 25)` | `oklch(0.65 0.2 25)` | Error/destructive |
+| `--border` | `oklch(0.9 0.01 45)` | `oklch(0.28 0.02 45)` | Borders |
+| `--ring` | `oklch(0.7 0.18 45)` | `oklch(0.72 0.19 45)` | Focus rings |
+
+### The Stacks Orange
+
+The primary brand color is a warm orange (`oklch(0.7 0.18 45)`) that represents the Stacks ecosystem. This color is used for primary actions, links, and accent elements.
+
+## Spacing Scale
+
+Consistent spacing creates rhythm and hierarchy. The spacing scale is based on a 4px base unit.
+
+| Name | Value | Pixels |
+|------|-------|--------|
+| `0.5` | `0.125rem` | 2px |
+| `1` | `0.25rem` | 4px |
+| `2` | `0.5rem` | 8px |
+| `3` | `0.75rem` | 12px |
+| `4` | `1rem` | 16px |
+| `5` | `1.25rem` | 20px |
+| `6` | `1.5rem` | 24px |
+| `8` | `2rem` | 32px |
+| `10` | `2.5rem` | 40px |
+| `12` | `3rem` | 48px |
+| `16` | `4rem` | 64px |
+
+## Border Radius
+
+Border radius tokens control the roundness of elements. The base radius is configurable via `--radius`.
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--radius-sm` | `calc(var(--radius) - 4px)` | Small elements |
+| `--radius-md` | `calc(var(--radius) - 2px)` | Medium elements |
+| `--radius-lg` | `var(--radius)` | Large elements (default 0.5rem) |
+| `--radius-xl` | `calc(var(--radius) + 4px)` | Extra large |
+| `--radius-full` | `9999px` | Pills and circles |
+
+## Using Tokens in Code
+
+Access tokens via CSS variables or Tailwind utilities:
+
+```css
+/* CSS */
+.my-element {
+  background-color: var(--primary);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-lg);
+}
+```
+
+```tsx
+{/* Tailwind */}
+<div className="bg-primary p-4 rounded-lg">
+  Content
+</div>
+```

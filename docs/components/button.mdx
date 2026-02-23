@@ -1,0 +1,150 @@
+---
+sidebar_position: 2
+title: Button
+description: Displays a button or a component that looks like a button.
+---
+
+import { Button } from '@site/src/components/ui/button'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Button
+
+Displays a button or a component that looks like a button.
+
+## Rectangular Variants
+
+The button component supports multiple visual variants for different use cases and hierarchies.
+
+<ComponentPreview>
+  <Button>Button</Button>
+  <Button variant="secondary">Secondary</Button>
+  <Button variant="outline">Outline</Button>
+  <Button variant="ghost">Ghost</Button>
+  <Button variant="link">Link</Button>
+  <Button variant="destructive">Destructive</Button>
+</ComponentPreview>
+
+```tsx
+<Button>Button</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="link">Link</Button>
+<Button variant="destructive">Destructive</Button>
+```
+
+## Circular Variants
+
+Use the `rounded="full"` prop for pill-shaped buttons, commonly used in Web3 interfaces.
+
+<ComponentPreview>
+  <Button rounded="full">Button</Button>
+  <Button variant="secondary" rounded="full">Secondary</Button>
+  <Button variant="outline" rounded="full">Outline</Button>
+  <Button variant="ghost" rounded="full">Ghost</Button>
+  <Button variant="destructive" rounded="full">Destructive</Button>
+</ComponentPreview>
+
+```tsx
+<Button rounded="full">Button</Button>
+<Button variant="secondary" rounded="full">Secondary</Button>
+<Button variant="outline" rounded="full">Outline</Button>
+<Button variant="ghost" rounded="full">Ghost</Button>
+<Button variant="destructive" rounded="full">Destructive</Button>
+```
+
+## Sizes
+
+Buttons come in three sizes to accommodate different contexts.
+
+<ComponentPreview>
+  <Button size="sm">Small</Button>
+  <Button size="default">Default</Button>
+  <Button size="lg">Large</Button>
+</ComponentPreview>
+
+```tsx
+<Button size="sm">Small</Button>
+<Button size="default">Default</Button>
+<Button size="lg">Large</Button>
+```
+
+## Loading State
+
+Use the loading state when an action is being processed. This disables the button and shows a spinner.
+
+<ComponentPreview>
+  <Button isLoading>Loading</Button>
+  <Button variant="outline" isLoading>Processing</Button>
+</ComponentPreview>
+
+```tsx
+<Button isLoading>Loading</Button>
+<Button variant="outline" isLoading>Processing</Button>
+```
+
+:::info Web3 Usage
+Loading states are essential for blockchain interactions. Always show loading during wallet confirmations and transaction submissions.
+:::
+
+## Web3 Examples
+
+### Wallet Connection
+
+Common button patterns for wallet connection flows:
+
+<ComponentPreview>
+  <Button>Connect Wallet</Button>
+  <Button variant="outline">
+    <svg className="mr-2 size-4" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="12" cy="12" r="10" />
+    </svg>
+    Leather
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button>Connect Wallet</Button>
+<Button variant="outline">
+  <svg className="mr-2 size-4" viewBox="0 0 24 24" fill="currentColor">
+    <circle cx="12" cy="12" r="10" />
+  </svg>
+  Leather
+</Button>
+```
+
+### Transaction Actions
+
+Buttons for initiating and confirming transactions:
+
+<ComponentPreview>
+  <Button size="lg">Send STX</Button>
+  <Button variant="destructive">Cancel Transaction</Button>
+  <Button variant="outline">View on Explorer</Button>
+</ComponentPreview>
+
+```tsx
+<Button size="lg">Send STX</Button>
+<Button variant="destructive">Cancel Transaction</Button>
+<Button variant="outline">View on Explorer</Button>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link"` | `"default"` | The visual style variant of the button |
+| `size` | `"default" \| "sm" \| "lg" \| "icon"` | `"default"` | The size of the button |
+| `rounded` | `"default" \| "full"` | `"default"` | The border radius style of the button |
+| `isLoading` | `boolean` | `false` | Shows a loading spinner and disables the button |
+| `asChild` | `boolean` | `false` | Render as a child element (useful for links) |
+
+## Accessibility
+
+The Button component follows WAI-ARIA button patterns:
+
+- Uses native `<button>` element for proper semantics
+- Supports keyboard navigation (Enter and Space to activate)
+- Includes visible focus states for keyboard users
+- Disabled state removes from tab order and indicates visually
+- Loading state sets `aria-busy` and disables interaction

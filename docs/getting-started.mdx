@@ -1,0 +1,157 @@
+---
+sidebar_position: 2
+title: Getting Started
+description: Learn how to install and set up the Stacks Design System in your project.
+---
+
+# Getting Started
+
+Learn how to install and set up the Stacks Design System in your project.
+
+## Prerequisites
+
+Before you begin, make sure you have the following installed on your system:
+
+- Node.js 18.x or later
+- npm, yarn, or pnpm package manager
+- A React/Next.js project (or create a new one)
+
+## Installation
+
+The Stacks Design System is built on top of Tailwind CSS and Radix UI primitives. Follow these steps to add it to your project:
+
+### 1. Install Dependencies
+
+Install the required packages:
+
+```bash
+npm install tailwindcss @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react
+```
+
+### 2. Configure Tailwind
+
+Update your `tailwind.config.ts` to include the Stacks design tokens:
+
+```tsx
+// tailwind.config.ts
+import type { Config } from "tailwindcss"
+
+const config: Config = {
+  darkMode: "class",
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        primary: {
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
+        },
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
+        },
+        destructive: {
+          DEFAULT: "var(--destructive)",
+        },
+        muted: {
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
+        },
+        accent: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
+        },
+        card: {
+          DEFAULT: "var(--card)",
+          foreground: "var(--card-foreground)",
+        },
+      },
+    },
+  },
+  plugins: [],
+}
+
+export default config
+```
+
+### 3. Add CSS Variables
+
+Add the Stacks design tokens to your global CSS file. The system supports both light and dark modes with semantically named tokens.
+
+| Token | Light | Dark | Usage |
+|-------|-------|------|-------|
+| `--background` | `oklch(0.99 0 0)` | `oklch(0.13 0.01 45)` | Page background |
+| `--foreground` | `oklch(0.15 0 0)` | `oklch(0.95 0 0)` | Primary text |
+| `--primary` | `oklch(0.7 0.18 45)` | `oklch(0.72 0.19 45)` | Stacks orange |
+| `--secondary` | `oklch(0.96 0 0)` | `oklch(0.25 0.02 45)` | Secondary surfaces |
+| `--muted` | `oklch(0.96 0.005 45)` | `oklch(0.22 0.015 45)` | Muted elements |
+| `--accent` | `oklch(0.97 0.02 45)` | `oklch(0.25 0.03 45)` | Accent highlights |
+| `--destructive` | `oklch(0.6 0.22 25)` | `oklch(0.65 0.2 25)` | Error/destructive |
+| `--border` | `oklch(0.9 0.01 45)` | `oklch(0.28 0.02 45)` | Borders |
+| `--ring` | `oklch(0.7 0.18 45)` | `oklch(0.72 0.19 45)` | Focus rings |
+
+```css
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.15 0 0);
+  --primary: oklch(0.7 0.18 45);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0 0);
+  --muted: oklch(0.96 0.005 45);
+  --accent: oklch(0.97 0.02 45);
+  --destructive: oklch(0.6 0.22 25);
+  --border: oklch(0.9 0.01 45);
+  --ring: oklch(0.7 0.18 45);
+}
+
+.dark {
+  --background: oklch(0.13 0.01 45);
+  --foreground: oklch(0.95 0 0);
+  --primary: oklch(0.72 0.19 45);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.25 0.02 45);
+  --muted: oklch(0.22 0.015 45);
+  --accent: oklch(0.25 0.03 45);
+  --destructive: oklch(0.65 0.2 25);
+  --border: oklch(0.28 0.02 45);
+  --ring: oklch(0.72 0.19 45);
+}
+```
+
+## Using Components
+
+Once set up, you can import and use components directly:
+
+```tsx
+import { Button } from "@/components/ui/button"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+
+export function MyComponent() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Welcome to Stacks</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Button>Connect Wallet</Button>
+      </CardContent>
+    </Card>
+  )
+}
+```
+
+## Next Steps
+
+Now that you have the design system installed, explore these resources:
+
+- [Button Component](./components/button) — Learn about button variants and usage
+- [Wallet Connection](./patterns/wallet-connect) — Implement wallet connect flows
+- [Theming Guide](./guidelines/theming) — Customize the design system for your brand

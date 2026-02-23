@@ -1,0 +1,229 @@
+---
+sidebar_position: 3
+title: Balance Display Card
+description: A financial summary component that displays a user's total balance and a breakdown of individual assets within a wallet or portfolio.
+---
+
+import { BalanceOverview, PortfolioSummary, AssetListItem, AssetAllocationBar } from '@site/src/components/ui/balance-display'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Balance Display Card
+
+A financial summary component that displays a user's total balance and a breakdown of individual assets within a wallet or portfolio. Includes variants for a quick balance overview, a full portfolio summary with asset allocation, and individual asset line items.
+
+## Variants
+
+### Balance Overview
+
+A centered card showing the user's total balance with a dollar-denominated change indicator and percentage. Four action buttons at the bottom provide quick access to common wallet operations.
+
+<ComponentPreview>
+  <BalanceOverview balance={12345.23} change={45.0} changePercent={1.03} />
+</ComponentPreview>
+
+```tsx
+import { QrCode, Send, ArrowLeftRight, DollarSign } from "lucide-react"
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+
+function BalanceOverview({ balance, change, changePercent }) {
+  const isPositive = change >= 0
+
+  return (
+    <Card className="w-[480px] rounded-[20px] p-8">
+      <div className="flex flex-col items-center gap-1">
+        <span className="text-4xl font-bold tracking-tight">
+          ${balance.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+        </span>
+        <div className="flex items-center gap-2 text-sm font-medium text-green-600">
+          <span>{isPositive ? "+" : ""}${change.toFixed(2)}</span>
+          <span>{isPositive ? "+" : ""}{changePercent.toFixed(2)}%</span>
+        </div>
+      </div>
+
+      <div className="mt-8 flex gap-3">
+        <Button rounded="full" className="flex-1 gap-1.5 bg-foreground text-background">
+          <QrCode className="size-4" /> Receive
+        </Button>
+        <Button rounded="full" className="flex-1 gap-1.5 bg-foreground text-background">
+          <Send className="size-4" /> Send
+        </Button>
+        <Button rounded="full" className="flex-1 gap-1.5 bg-foreground text-background">
+          <ArrowLeftRight className="size-4" /> Swap
+        </Button>
+        <Button rounded="full" className="flex-1 gap-1.5 bg-foreground text-background">
+          <DollarSign className="size-4" /> Buy
+        </Button>
+      </div>
+    </Card>
+  )
+}
+```
+
+### Portfolio Summary
+
+A more detailed card that pairs the total asset value with a color-coded allocation bar. Each segment of the bar represents a different token, with icons positioned below. Action buttons use a primary/secondary pattern to distinguish the most common action (Send) from supporting actions.
+
+<ComponentPreview>
+  <PortfolioSummary totalBalance={12345} />
+</ComponentPreview>
+
+```tsx
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+
+const assets = [
+  { name: "Bitcoin",  ticker: "BTCUSD",  icon: "/img/btc.png",    color: "#F7931A", percentage: 50 },
+  { name: "Ethereum", ticker: "ETHUSD",  icon: "/img/eth.png",    color: "#627EEA", percentage: 25 },
+  { name: "Tether",   ticker: "USDTUSD", icon: "/img/tether.png", color: "#26A17B", percentage: 15 },
+  { name: "Litecoin", ticker: "LTCUSD",  icon: "/img/ltc.png",    color: "#BFBBBB", percentage: 10 },
+]
+
+function PortfolioSummary({ totalBalance, assets }) {
+  return (
+    <Card className="w-[480px] rounded-[20px] p-8">
+      <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+        Total Assets
+      </span>
+      <div className="mt-2 text-5xl font-bold tracking-tight">
+        ${totalBalance.toLocaleString()}
+      </div>
+
+      {/* Allocation bar */}
+      <div className="mt-6 flex h-3 w-full overflow-hidden rounded-full">
+        {assets.map((a) => (
+          <div key={a.ticker} style={{ width: `${a.percentage}%`, backgroundColor: a.color }} />
+        ))}
+      </div>
+
+      <div className="mt-10 flex gap-3">
+        <Button rounded="full" className="flex-1 bg-foreground text-background">
+          Send
+        </Button>
+        <Button variant="secondary" rounded="full" className="flex-1">
+          Receive
+        </Button>
+        <Button variant="secondary" rounded="full" className="flex-1">
+          Deposit
+        </Button>
+        <Button variant="secondary" rounded="full" className="flex-1">
+          Convert
+        </Button>
+      </div>
+    </Card>
+  )
+}
+```
+
+### Asset List Item
+
+A single-row display for an individual token. Shows the asset icon, name, ticker symbol, and the user's balance. Use these in a vertical list within a portfolio view.
+
+<ComponentPreview column>
+  <AssetListItem name="Bitcoin" ticker="BTCUSD" icon="/img/btc.png" balance={0.0123456} />
+  <AssetListItem name="Ethereum" ticker="ETHUSD" icon="/img/eth.png" balance={1.4521} />
+  <AssetListItem name="Tether" ticker="USDTUSD" icon="/img/tether.png" balance={1250.0} />
+  <AssetListItem name="Litecoin" ticker="LTCUSD" icon="/img/ltc.png" balance={3.8712} />
+</ComponentPreview>
+
+```tsx
+function AssetListItem({ name, ticker, icon, balance }) {
+  return (
+    <div className="flex items-center justify-between rounded-xl bg-muted px-5 py-4">
+      <div className="flex items-center gap-3">
+        <img src={icon} alt={name} className="size-8 rounded-full" />
+        <div className="flex items-baseline gap-2">
+          <span className="text-base font-semibold">{name}</span>
+          <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            {ticker}
+          </span>
+        </div>
+      </div>
+      <span className="font-mono text-base">{balance.toFixed(7)}</span>
+    </div>
+  )
+}
+```
+
+### Asset Allocation Bar (Standalone)
+
+The allocation bar can be used independently outside the Portfolio Summary card. Pass an array of assets with `percentage` and `color` values to render a proportional breakdown.
+
+<ComponentPreview>
+  <div style={{ width: 420 }}>
+    <AssetAllocationBar />
+  </div>
+</ComponentPreview>
+
+```tsx
+const assets = [
+  { name: "Bitcoin",  icon: "/img/btc.png",  color: "#F7931A", percentage: 50 },
+  { name: "Ethereum", icon: "/img/eth.png",  color: "#627EEA", percentage: 25 },
+  { name: "Tether",   icon: "/img/tether.png", color: "#26A17B", percentage: 15 },
+  { name: "Litecoin", icon: "/img/ltc.png",  color: "#BFBBBB", percentage: 10 },
+]
+
+function AssetAllocationBar({ assets }) {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex h-3 w-full overflow-hidden rounded-full">
+        {assets.map((a) => (
+          <div key={a.name} style={{ width: `${a.percentage}%`, backgroundColor: a.color }} />
+        ))}
+      </div>
+      <div className="relative flex w-full">
+        {assets.map((a, i) => {
+          const offset = assets.slice(0, i).reduce((s, x) => s + x.percentage, 0)
+          return (
+            <div
+              key={a.name}
+              className="absolute"
+              style={{ left: `${offset + a.percentage / 2}%`, transform: "translateX(-50%)" }}
+            >
+              <img src={a.icon} alt={a.name} className="size-5 rounded-full" />
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+```
+
+## Design Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--foreground` | `oklch(0.15 0 0)` | Primary text, dark action buttons |
+| `--background` | `oklch(0.99 0 0)` | Button text on dark buttons |
+| `--muted` | `oklch(0.96 0.005 45)` | Asset list item background |
+| `--muted-foreground` | `oklch(0.5 0.02 45)` | Labels, ticker text |
+| `--border` | `oklch(0.9 0.01 45)` | Card border |
+| `--secondary` | `oklch(0.96 0 0)` | Secondary button fill |
+| `green-600` | Tailwind default | Positive change indicator |
+| `--destructive` | `oklch(0.6 0.22 25)` | Negative change indicator |
+
+## Anatomy
+
+1. **Balance Overview** — Centered balance figure, change indicators (dollar + percentage), and a row of four equal-width pill action buttons.
+2. **Portfolio Summary** — Uppercase "Total Assets" label, large balance, a segmented allocation bar with positioned asset icons below, and a primary/secondary button row.
+3. **Asset Allocation Bar** — Rounded horizontal bar divided into colored segments proportional to each asset's portfolio share, with circular token icons positioned at each segment's midpoint.
+4. **Asset List Item** — Rounded row with asset icon, name, ticker, and right-aligned balance in monospace.
+5. **Card wrapper** — White background, 20px border radius, 1px border, 32px padding (shared by Overview and Portfolio).
+
+## Usage Guidelines
+
+- Display balances with two decimal places for fiat values and seven for token amounts to preserve precision without clutter.
+- Use the **Balance Overview** in wallet home screens where a quick glance at total value and recent change is the priority.
+- Use the **Portfolio Summary** when the user needs to understand asset distribution at a glance — the allocation bar makes dominant holdings immediately visible.
+- Stack **Asset List Items** vertically below a Portfolio Summary to provide drill-down detail for each token.
+- The allocation bar segments should always sum to 100%. If an asset has less than 3% allocation, consider grouping small holdings into an "Other" segment to keep the bar readable.
+- Action button labels use uppercase monospace to maintain visual consistency with the broader Stacks design language.
+
+## Accessibility
+
+- All asset icons include descriptive `alt` text with the token name.
+- Change indicators use both color (green/red) and a sign prefix (+/−) so the direction is not conveyed by color alone.
+- Action buttons are keyboard-focusable and activatable with Enter/Space.
+- The allocation bar is purely decorative — asset breakdown details should also be available in the list items for screen reader users.
+- Font sizes and contrast ratios meet WCAG AA requirements across all text elements.

@@ -1,0 +1,171 @@
+---
+sidebar_position: 3
+title: Card
+description: Displays a card with header, content, and footer.
+---
+
+import { Button } from '@site/src/components/ui/button'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@site/src/components/ui/card'
+import { Input } from '@site/src/components/ui/input'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Card
+
+Displays a card with header, content, and footer.
+
+## Basic Card
+
+A simple card with title, description, and content. Cards are commonly used to group related information.
+
+<ComponentPreview>
+  <Card className="w-[350px]">
+    <CardHeader>
+      <CardTitle>Card Title</CardTitle>
+      <CardDescription>Card description goes here.</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p className="text-sm text-foreground">Card content goes here.</p>
+    </CardContent>
+  </Card>
+</ComponentPreview>
+
+```tsx
+<Card className="w-[350px]">
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card description goes here.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Card content goes here.</p>
+  </CardContent>
+</Card>
+```
+
+## Card with Footer
+
+Add a footer for actions like buttons or links.
+
+<ComponentPreview>
+  <Card className="w-[350px]">
+    <CardHeader>
+      <CardTitle>Create Account</CardTitle>
+      <CardDescription>Enter your details to get started.</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <Input label="Email" placeholder="you@example.com" />
+    </CardContent>
+    <CardFooter className="justify-end gap-2">
+      <Button variant="outline">Cancel</Button>
+      <Button>Continue</Button>
+    </CardFooter>
+  </Card>
+</ComponentPreview>
+
+```tsx
+<Card className="w-[350px]">
+  <CardHeader>
+    <CardTitle>Create Account</CardTitle>
+    <CardDescription>Enter your details to get started.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <Input label="Email" placeholder="you@example.com" />
+  </CardContent>
+  <CardFooter className="justify-end gap-2">
+    <Button variant="outline">Cancel</Button>
+    <Button>Continue</Button>
+  </CardFooter>
+</Card>
+```
+
+## Web3 Example: Transaction Card
+
+Cards are ideal for displaying transaction information, wallet balances, and other blockchain data.
+
+<ComponentPreview>
+  <Card className="w-[350px]">
+    <CardHeader>
+      <CardTitle>Send STX</CardTitle>
+      <CardDescription>Transfer STX to another Stacks address</CardDescription>
+    </CardHeader>
+    <CardContent className="space-y-4">
+      <Input label="Recipient Address" placeholder="SP..." />
+      <Input label="Amount" placeholder="0.00" type="number" />
+      <div className="flex justify-between text-sm">
+        <span className="text-muted-foreground">Network Fee</span>
+        <span className="text-foreground">~0.001 STX</span>
+      </div>
+    </CardContent>
+    <CardFooter className="justify-end gap-2">
+      <Button variant="outline">Cancel</Button>
+      <Button>Send</Button>
+    </CardFooter>
+  </Card>
+</ComponentPreview>
+
+```tsx
+<Card className="w-[350px]">
+  <CardHeader>
+    <CardTitle>Send STX</CardTitle>
+    <CardDescription>Transfer STX to another Stacks address</CardDescription>
+  </CardHeader>
+  <CardContent className="space-y-4">
+    <Input label="Recipient Address" placeholder="SP..." />
+    <Input label="Amount" placeholder="0.00" type="number" />
+    <div className="flex justify-between text-sm">
+      <span className="text-muted-foreground">Network Fee</span>
+      <span>~0.001 STX</span>
+    </div>
+  </CardContent>
+  <CardFooter className="justify-end gap-2">
+    <Button variant="outline">Cancel</Button>
+    <Button>Send</Button>
+  </CardFooter>
+</Card>
+```
+
+## Web3 Example: Wallet Balance Card
+
+<ComponentPreview>
+  <Card className="w-[350px]">
+    <CardHeader className="pb-2">
+      <CardDescription>Total Balance</CardDescription>
+      <CardTitle className="text-3xl">1,234.56 STX</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <div className="text-sm text-muted-foreground">≈ $2,469.12 USD</div>
+    </CardContent>
+    <CardFooter className="gap-2">
+      <Button className="flex-1">Send</Button>
+      <Button variant="outline" className="flex-1">Receive</Button>
+    </CardFooter>
+  </Card>
+</ComponentPreview>
+
+```tsx
+<Card className="w-[350px]">
+  <CardHeader className="pb-2">
+    <CardDescription>Total Balance</CardDescription>
+    <CardTitle className="text-3xl">1,234.56 STX</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="text-sm text-muted-foreground">≈ $2,469.12 USD</div>
+  </CardContent>
+  <CardFooter className="gap-2">
+    <Button className="flex-1">Send</Button>
+    <Button variant="outline" className="flex-1">Receive</Button>
+  </CardFooter>
+</Card>
+```
+
+## Components
+
+The Card component is composed of several sub-components:
+
+| Component | Element | Description |
+|-----------|---------|-------------|
+| `Card` | `div` | The main container with border, background, and shadow |
+| `CardHeader` | `div` | Contains the title and description, with padding |
+| `CardTitle` | `h3` | The heading for the card |
+| `CardDescription` | `p` | Secondary text under the title |
+| `CardContent` | `div` | The main content area of the card |
+| `CardFooter` | `div` | Footer area for actions, uses flexbox |

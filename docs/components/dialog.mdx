@@ -1,0 +1,265 @@
+---
+sidebar_position: 4
+title: Dialog
+description: A window overlaid on the primary window, rendering content underneath inert.
+---
+
+import { Button } from '@site/src/components/ui/button'
+import { Input } from '@site/src/components/ui/input'
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from '@site/src/components/ui/dialog'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Dialog
+
+A window overlaid on the primary window, rendering content underneath inert.
+
+## Basic Dialog
+
+A simple dialog with a trigger button.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => (
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline">Open Dialog</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Dialog Title</DialogTitle>
+            <DialogDescription>
+              This is a description of the dialog content.
+            </DialogDescription>
+          </DialogHeader>
+          <p className="text-sm text-foreground">Dialog body content goes here.</p>
+        </DialogContent>
+      </Dialog>
+    )}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+<Dialog>
+  <DialogTrigger asChild>
+    <Button variant="outline">Open Dialog</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Dialog Title</DialogTitle>
+      <DialogDescription>
+        This is a description of the dialog content.
+      </DialogDescription>
+    </DialogHeader>
+    <p>Dialog body content goes here.</p>
+  </DialogContent>
+</Dialog>
+```
+
+## With Form
+
+Dialogs commonly contain forms for user input.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => (
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button>Edit Profile</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Edit Profile</DialogTitle>
+            <DialogDescription>Make changes to your profile here.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <Input label="Name" placeholder="Enter your name" />
+            <Input label="Email" type="email" placeholder="you@example.com" />
+          </div>
+          <DialogFooter>
+            <Button variant="outline">Cancel</Button>
+            <Button>Save Changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    )}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Edit Profile</Button>
+  </DialogTrigger>
+  <DialogContent className="sm:max-w-md">
+    <DialogHeader>
+      <DialogTitle>Edit Profile</DialogTitle>
+      <DialogDescription>Make changes to your profile here.</DialogDescription>
+    </DialogHeader>
+    <div className="space-y-4 py-4">
+      <Input label="Name" placeholder="Enter your name" />
+      <Input label="Email" type="email" placeholder="you@example.com" />
+    </div>
+    <DialogFooter>
+      <Button variant="outline">Cancel</Button>
+      <Button>Save Changes</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+## Confirmation Dialog
+
+Use for destructive or important actions that require confirmation.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => (
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="destructive">Delete Account</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove all your data from our servers.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline">Cancel</Button>
+            <Button variant="destructive">Delete</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    )}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+<Dialog>
+  <DialogTrigger asChild>
+    <Button variant="destructive">Delete Account</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Are you absolutely sure?</DialogTitle>
+      <DialogDescription>
+        This action cannot be undone. This will permanently delete your
+        account and remove all your data from our servers.
+      </DialogDescription>
+    </DialogHeader>
+    <DialogFooter>
+      <Button variant="outline">Cancel</Button>
+      <Button variant="destructive">Delete</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+:::warning Destructive Actions
+Always use confirmation dialogs for irreversible actions like deleting data or canceling transactions.
+:::
+
+## Web3: Transaction Confirmation
+
+Transaction confirmation dialogs are critical in Web3 applications. Always clearly display what the user is approving.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => (
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button>Confirm Transaction</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Confirm Transaction</DialogTitle>
+            <DialogDescription>Review the details before signing</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">To</span>
+              <span className="font-mono text-foreground">SP2J6...9EJ7</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Amount</span>
+              <span className="font-semibold text-foreground">100 STX</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Network Fee</span>
+              <span className="text-foreground">~0.001 STX</span>
+            </div>
+            <div className="border-t border-border pt-4">
+              <div className="flex justify-between font-medium text-foreground">
+                <span>Total</span>
+                <span>100.001 STX</span>
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline">Reject</Button>
+            <Button>Sign & Send</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    )}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Confirm Transaction</Button>
+  </DialogTrigger>
+  <DialogContent className="sm:max-w-md">
+    <DialogHeader>
+      <DialogTitle>Confirm Transaction</DialogTitle>
+      <DialogDescription>Review the details before signing</DialogDescription>
+    </DialogHeader>
+    <div className="space-y-4 py-4">
+      <div className="flex justify-between text-sm">
+        <span className="text-muted-foreground">To</span>
+        <span className="font-mono">SP2J6...9EJ7</span>
+      </div>
+      <div className="flex justify-between text-sm">
+        <span className="text-muted-foreground">Amount</span>
+        <span className="font-semibold">100 STX</span>
+      </div>
+      <div className="flex justify-between text-sm">
+        <span className="text-muted-foreground">Network Fee</span>
+        <span>~0.001 STX</span>
+      </div>
+      <div className="border-t pt-4">
+        <div className="flex justify-between font-medium">
+          <span>Total</span>
+          <span>100.001 STX</span>
+        </div>
+      </div>
+    </div>
+    <DialogFooter>
+      <Button variant="outline">Reject</Button>
+      <Button>Sign & Send</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controlled open state of the dialog |
+| `onOpenChange` | `(open: boolean) => void` | — | Callback when open state changes |
+| `showCloseButton` | `boolean` | `true` | Whether to show the close button in DialogContent |
+
+## Accessibility
+
+The Dialog component follows WAI-ARIA dialog patterns:
+
+- Focus is trapped within the dialog while open
+- Escape key closes the dialog
+- Click outside closes the dialog (optional)
+- Content underneath is made inert (not interactive)
+- Focus returns to trigger when closed

@@ -1,30 +1,170 @@
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
+@tailwind components;
+@tailwind utilities;
 
-/* You can override the default Infima variables here. */
+/* ── Stacks Design System tokens ── */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --radius: 0.5rem;
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.15 0 0);
+  --primary: oklch(0.7 0.18 45);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.15 0 0);
+  --muted: oklch(0.96 0.005 45);
+  --muted-foreground: oklch(0.5 0.02 45);
+  --accent: oklch(0.97 0.02 45);
+  --accent-foreground: oklch(0.15 0 0);
+  --destructive: oklch(0.6 0.22 25);
+  --border: oklch(0.9 0.01 45);
+  --input: oklch(0.9 0.01 45);
+  --ring: oklch(0.7 0.18 45);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0 0);
+  --primary-hover: oklch(0.63 0.17 45);
+  --destructive-hover: oklch(0.5 0.2 25);
+  --ghost-hover: rgba(20, 20, 20, 0.05);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* Scoped preflight reset — :where() gives zero specificity so Tailwind utilities win */
+:where(.stacks-theme) *,
+:where(.stacks-theme) *::before,
+:where(.stacks-theme) *::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: var(--border);
+  --tw-ring-inset: ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: var(--ring);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
 }
+
+:where(.stacks-theme) :where(button, input, select, textarea) {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+:where(.stacks-theme button) {
+  cursor: pointer;
+}
+
+:where(.stacks-theme input) {
+  cursor: text;
+}
+
+:where(.stacks-theme) :where(h1, h2, h3, h4, h5, h6) {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
+:where(.stacks-theme p) {
+  margin: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Docusaurus / Infima overrides ── */
+:root {
+  --ifm-color-primary: #e2722b;
+  --ifm-color-primary-dark: #d46119;
+  --ifm-color-primary-darker: #c85c17;
+  --ifm-color-primary-darkest: #a44c13;
+  --ifm-color-primary-light: #e6833f;
+  --ifm-color-primary-lighter: #e88d4e;
+  --ifm-color-primary-lightest: #eea672;
+  --ifm-code-font-size: 95%;
+  --ifm-font-family-base: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, monospace;
+  --ifm-heading-font-weight: 700;
+  --docusaurus-highlighted-code-line-bg: rgba(226, 114, 43, 0.1);
+}
+
+
+/* Stacks hero gradient for navbar */
+.navbar {
+  box-shadow: 0 1px 0 0 var(--ifm-color-primary-lightest);
+}
+
+/* Admonition customization */
+.alert--info {
+  --ifm-alert-background-color: rgba(226, 114, 43, 0.08);
+  --ifm-alert-border-color: var(--ifm-color-primary);
+}
+
+/* Code block styling */
+.prism-code {
+  font-size: 0.9rem;
+}
+
+/* Props table styling */
+.props-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.props-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--ifm-color-emphasis-300);
+  font-weight: 600;
+}
+
+.props-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.props-table code {
+  font-size: 0.85rem;
+}
+
+/* Feature cards on homepage */
+.feature-card {
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+  border-color: var(--ifm-color-primary-light);
+  box-shadow: 0 4px 12px rgba(226, 114, 43, 0.1);
+}
+
+.feature-card h3 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Token color swatches */
+.token-swatch {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Hero section improvements */
+.hero--stacks {
+  background: linear-gradient(135deg, rgba(226, 114, 43, 0.05), transparent, rgba(226, 114, 43, 0.08));
+}
+

@@ -1,0 +1,164 @@
+---
+sidebar_position: 3
+title: Theming
+description: Customize the Stacks Design System to match your brand.
+---
+
+# Theming
+
+Customize the Stacks Design System to match your brand while maintaining consistency and accessibility.
+
+## Theme Structure
+
+The design system uses CSS custom properties (variables) for theming. This allows you to customize colors, spacing, and other values without modifying component code.
+
+### Core Variables
+
+Override these variables in your CSS to customize the theme:
+
+```css
+:root {
+  /* Base radius for all rounded elements */
+  --radius: 0.5rem;
+
+  /* Brand colors */
+  --primary: oklch(0.7 0.18 45);
+  --primary-foreground: oklch(1 0 0);
+
+  /* Backgrounds */
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.15 0 0);
+
+  /* Component backgrounds */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0 0);
+
+  /* Muted elements */
+  --muted: oklch(0.96 0.005 45);
+  --muted-foreground: oklch(0.5 0 0);
+
+  /* Borders and inputs */
+  --border: oklch(0.9 0.01 45);
+  --input: oklch(0.92 0.01 45);
+  --ring: oklch(0.7 0.18 45);
+
+  /* Semantic colors */
+  --destructive: oklch(0.6 0.22 25);
+}
+```
+
+## Dark Mode
+
+The design system includes built-in dark mode support. Dark mode is activated by adding the `dark` class to the HTML element.
+
+```css
+.dark {
+  --background: oklch(0.13 0.01 45);
+  --foreground: oklch(0.95 0 0);
+  --primary: oklch(0.72 0.19 45);
+  --card: oklch(0.18 0.015 45);
+  --muted: oklch(0.22 0.015 45);
+  --border: oklch(0.28 0.02 45);
+  /* ... other dark mode values */
+}
+```
+
+### Implementing Theme Toggle
+
+```tsx
+function useTheme() {
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
+    setIsDark(prefersDark)
+    document.documentElement.classList.toggle('dark', prefersDark)
+  }, [])
+
+  const toggle = () => {
+    setIsDark(!isDark)
+    document.documentElement.classList.toggle('dark')
+  }
+
+  return { isDark, toggle }
+}
+```
+
+## Custom Brand Colors
+
+To use your own brand color instead of the Stacks orange, update the primary color variable. Use the OKLCH color space for perceptually uniform colors.
+
+:::warning Accessibility
+When customizing colors, always verify contrast ratios meet WCAG AA standards (4.5:1 for normal text, 3:1 for large text).
+:::
+
+### Example: Blue Theme
+
+```css
+:root {
+  --primary: oklch(0.55 0.2 250);
+  --primary-foreground: oklch(1 0 0);
+  --ring: oklch(0.55 0.2 250);
+  --accent: oklch(0.95 0.03 250);
+  --accent-foreground: oklch(0.4 0.2 250);
+}
+
+.dark {
+  --primary: oklch(0.65 0.2 250);
+  --accent: oklch(0.25 0.05 250);
+}
+```
+
+## Border Radius
+
+Control the overall roundness of your UI by adjusting the base radius:
+
+| Value | Style | Description |
+|-------|-------|-------------|
+| `--radius: 0` | Sharp | Square corners |
+| `--radius: 0.5rem` | Default | Slightly rounded |
+| `--radius: 1rem` | Rounded | More rounded corners |
+
+## Typography
+
+The default font stack uses Space Grotesk for headings and body text. Override via CSS or the Next.js font configuration:
+
+```tsx
+import { Inter } from 'next/font/google'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-geist-sans',
+})
+
+// Apply to layout
+<html className={inter.variable}>
+  ...
+</html>
+```
+
+## Component-Level Customization
+
+Components accept `className` props for one-off customizations:
+
+```tsx
+<Button className="bg-gradient-to-r from-primary to-orange-400">
+  Gradient Button
+</Button>
+
+<Card className="border-primary/50 shadow-lg shadow-primary/10">
+  Custom card styling
+</Card>
+```
+
+## Best Practices
+
+- Always test both light and dark modes
+- Verify contrast ratios when changing colors
+- Use semantic color names (primary, destructive) over raw values
+- Keep customizations consistent across your application
+- Document any theme overrides for your team
+
+For a complete list of design tokens, see the [Design Tokens](../foundations/tokens) documentation.

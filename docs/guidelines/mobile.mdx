@@ -1,0 +1,138 @@
+---
+sidebar_position: 2
+title: Mobile Patterns
+description: Guidelines for building mobile-first Web3 experiences with the Stacks Design System.
+---
+
+# Mobile Patterns
+
+Guidelines for building mobile-first Web3 experiences. A significant portion of crypto users access applications on mobile devices.
+
+:::info Mobile-First Approach
+All components in the Stacks Design System are designed mobile-first, then enhanced for larger screens. This ensures great experiences across all devices.
+:::
+
+## Touch Targets
+
+Ensure interactive elements are large enough for comfortable touch interaction. The minimum recommended touch target size is 44x44 pixels.
+
+### Button Sizing
+
+- **Mobile:** Use `size="lg"` (48px height) for primary actions
+- **Desktop:** Default size (40px) works well with mouse interaction
+- **Icon buttons:** Minimum 44x44px touch target area
+
+```tsx
+{/* Responsive button sizing */}
+<Button size="lg" className="w-full md:w-auto md:size-default">
+  Connect Wallet
+</Button>
+```
+
+## Spacing & Layout
+
+Increase spacing on mobile to prevent accidental taps and improve readability.
+
+### Responsive Spacing
+
+```tsx
+{/* Mobile-first spacing */}
+<div className="space-y-4 md:space-y-3">
+  {/* More spacing on mobile, tighter on desktop */}
+</div>
+
+<div className="p-4 md:p-6 lg:p-8">
+  {/* Progressive padding increase */}
+</div>
+```
+
+## Navigation Patterns
+
+Mobile navigation requires different patterns than desktop.
+
+### Bottom Navigation
+
+For mobile apps, consider bottom navigation for frequently accessed areas. Keep it to 3-5 items maximum.
+
+### Hamburger Menu
+
+Use a hamburger menu for secondary navigation items. The sidebar component automatically collapses to a mobile drawer.
+
+## Forms & Input
+
+Optimize forms for mobile input:
+
+- Use appropriate input types (`type="number"` for amounts)
+- Stack form fields vertically on mobile
+- Show clear error messages below inputs
+- Use large, clearly labeled submit buttons
+
+### Mobile-Optimized Form
+
+```tsx
+<form className="space-y-4">
+  <Input
+    label="Amount"
+    type="number"
+    inputMode="decimal"
+    placeholder="0.00"
+  />
+  <Input
+    label="Recipient"
+    placeholder="SP..."
+    autoComplete="off"
+  />
+  <Button size="lg" className="w-full">
+    Continue
+  </Button>
+</form>
+```
+
+## Web3 Mobile Considerations
+
+### Wallet Connection
+
+Mobile wallet connection often involves deep links to wallet apps. Handle the full flow:
+
+- Detect mobile browsers and show appropriate wallet options
+- Use deep links to open wallet apps
+- Handle return from wallet app gracefully
+- Show clear loading states during connection
+
+### Address Display
+
+Stacks addresses are long. On mobile, truncate to show start and end:
+
+| Format | Example |
+|--------|---------|
+| Full address | `SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7` |
+| Truncated | `SP2J6...9EJ7` |
+
+### Transaction Confirmation
+
+Transaction details must be clearly visible on small screens:
+
+- Use a full-screen modal or sheet for transaction review
+- Show key details prominently (amount, recipient, fees)
+- Use large, clearly labeled action buttons
+- Allow scrolling for detailed information
+
+## Performance
+
+Mobile devices often have limited bandwidth and processing power:
+
+- Lazy load non-critical content
+- Optimize images for mobile (WebP, appropriate sizes)
+- Minimize JavaScript bundle size
+- Use skeleton loaders for perceived performance
+- Cache API responses where appropriate
+
+## Testing Checklist
+
+- ✓ Test on real mobile devices (iOS Safari, Android Chrome)
+- ✓ Verify touch targets are at least 44x44px
+- ✓ Check that forms work with mobile keyboards
+- ✓ Test wallet connection flow on mobile
+- ✓ Verify content is readable without zooming
+- ✓ Test in both portrait and landscape orientations
+- ✓ Check performance on slower connections (3G)
