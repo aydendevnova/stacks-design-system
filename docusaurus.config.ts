@@ -11,10 +11,10 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://design.stacks.co',
+  url: 'https://stacks-design-system.netlify.app',
   baseUrl: '/',
 
-  organizationName: 'stacks-network',
+  organizationName: 'Ayden',
   projectName: 'stacks-design-system',
 
   onBrokenLinks: 'warn',
