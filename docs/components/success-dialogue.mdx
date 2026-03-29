@@ -1,75 +1,96 @@
 ---
 sidebar_position: 16
 title: Success Dialogue
-description: A popup that confirms to the user that an action has been completed.
+description: A dialog that confirms to the user that an action has been completed.
 ---
 
 import { Button } from '@site/src/components/ui/button'
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from '@site/src/components/ui/dialog'
 import { ComponentPreview } from '@site/src/components/ComponentPreview'
 import { CircleCheck } from 'lucide-react'
+import BrowserOnly from '@docusaurus/BrowserOnly'
 
 # Success Dialogue
 
-A popup that confirms to the user that an action has been completed.
+A dialog that confirms to the user that an action has been completed.
 
 <ComponentPreview>
-  <div className="w-full max-w-[450px] rounded-lg border border-border bg-card p-6">
-    <div className="flex flex-col items-start gap-4">
-      <CircleCheck className="h-12 w-12 text-success" strokeWidth={1.5} />
-      <div className="flex flex-col gap-1.5">
-        <h4 className="text-base font-bold text-foreground">Success!</h4>
-        <p className="text-sm text-muted-foreground">
-          Your action was completed successfully. You're good to go.
-        </p>
-      </div>
-      <div className="flex w-full justify-end">
-        <Button rounded="full" size="sm" className="uppercase text-xs tracking-wider font-bold px-6">
-          Dismiss
-        </Button>
-      </div>
-    </div>
-  </div>
+  <BrowserOnly>
+    {() => (
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline">Open Success Dialogue</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[450px]">
+          <div className="flex flex-col items-start gap-4">
+            <CircleCheck className="h-12 w-12 text-success" strokeWidth={1.5} />
+            <DialogHeader>
+              <DialogTitle>Success!</DialogTitle>
+              <DialogDescription>
+                Your action was completed successfully. You're good to go.
+              </DialogDescription>
+            </DialogHeader>
+          </div>
+          <DialogFooter className="mt-4">
+            <Button rounded="full" size="sm" className="uppercase text-xs tracking-wider font-bold px-6">
+              Dismiss
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    )}
+  </BrowserOnly>
 </ComponentPreview>
 
 ```tsx
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { CircleCheck } from "lucide-react"
 
-<div className="w-full max-w-[450px] rounded-lg border border-border bg-card p-6">
-  <div className="flex flex-col items-start gap-4">
-    <CircleCheck className="h-12 w-12 text-success" strokeWidth={1.5} />
-    <div className="flex flex-col gap-1.5">
-      <h4 className="text-base font-bold text-foreground">Success!</h4>
-      <p className="text-sm text-muted-foreground">
-        Your action was completed successfully. You're good to go.
-      </p>
+<Dialog>
+  <DialogTrigger asChild>
+    <Button variant="outline">Open Success Dialogue</Button>
+  </DialogTrigger>
+  <DialogContent className="sm:max-w-[450px]">
+    <div className="flex flex-col items-start gap-4">
+      <CircleCheck className="h-12 w-12 text-success" strokeWidth={1.5} />
+      <DialogHeader>
+        <DialogTitle>Success!</DialogTitle>
+        <DialogDescription>
+          Your action was completed successfully. You're good to go.
+        </DialogDescription>
+      </DialogHeader>
     </div>
-    <div className="flex w-full justify-end">
+    <DialogFooter className="mt-4">
       <Button rounded="full" size="sm" className="uppercase text-xs tracking-wider font-bold px-6">
         Dismiss
       </Button>
-    </div>
-  </div>
-</div>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
 ```
 
 ## API Reference
 
-This component is composed from existing primitives:
+This component is a composition of the [Dialog](/docs/components/dialog) primitive with success-specific content:
 
 | Element | Component | Purpose |
 |---------|-----------|---------|
-| Container | `div` | Card-like wrapper with border and padding |
-| Icon | `CircleCheck` (lucide-react) | Visual success indicator in a circular frame |
-| Title | `h4` | Success heading |
-| Description | `p` | Confirmation message body |
+| Root | `Dialog` | Controls open/close state |
+| Trigger | `DialogTrigger` | Element that opens the dialog |
+| Content | `DialogContent` | Overlay container with focus trapping and close button |
+| Icon | `CircleCheck` (lucide-react) | Visual success indicator |
+| Title | `DialogTitle` | Success heading |
+| Description | `DialogDescription` | Confirmation message body |
 | Action | `Button` | Dismiss action to close the dialogue |
 
 ## Accessibility
 
-The Success Dialogue follows WAI-ARIA alert patterns:
+Built on [Radix Dialog](https://www.radix-ui.com/primitives/docs/components/dialog), this component inherits full WAI-ARIA dialog behavior:
 
-- Uses semantic heading hierarchy for the success title
-- Icon is decorative and supplements the text content
-- The dismiss action is a focusable button with clear labeling
-- When used as a modal, should be paired with `AlertDialog` for focus trapping and overlay behavior
+- Focus is trapped within the dialog while open
+- Escape key closes the dialog
+- Click outside closes the dialog
+- Content underneath is made inert
+- Focus returns to trigger when closed
+- `DialogTitle` and `DialogDescription` provide accessible labeling via `aria-labelledby` and `aria-describedby`
