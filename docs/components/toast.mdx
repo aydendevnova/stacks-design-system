@@ -1,0 +1,102 @@
+---
+sidebar_position: 30
+title: Toast
+description: A succinct message that is displayed temporarily.
+---
+
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { ToastDemo } from '@site/src/components/demos/ToastDemo'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Toast
+
+A succinct message that is displayed temporarily.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => <ToastDemo />}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import {
+  Toast,
+  ToastAction,
+  ToastDescription,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
+} from "@/components/ui/toast"
+
+export function ToastExample() {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <ToastProvider swipeDirection="right">
+      <Button variant="outline" onClick={() => setOpen(true)}>
+        Show Toast
+      </Button>
+
+      <Toast open={open} onOpenChange={setOpen}>
+        <div className="flex flex-col gap-1">
+          <ToastTitle>Scheduled: Catch up</ToastTitle>
+          <ToastDescription>
+            Friday, February 10, 2023 at 5:57 PM
+          </ToastDescription>
+        </div>
+        <ToastAction altText="Undo scheduling">UNDO</ToastAction>
+      </Toast>
+
+      <ToastViewport />
+    </ToastProvider>
+  )
+}
+```
+
+## API Reference
+
+<table className="props-table">
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ToastProvider</code></td>
+      <td>Wraps your app to provide toast context. Accepts <code>swipeDirection</code> (<code>"right"</code>, <code>"left"</code>, <code>"up"</code>, <code>"down"</code>).</td>
+    </tr>
+    <tr>
+      <td><code>Toast</code></td>
+      <td>The toast container. Accepts <code>variant</code> (<code>"default"</code> | <code>"destructive"</code>), <code>open</code>, <code>onOpenChange</code>, and <code>duration</code> (ms).</td>
+    </tr>
+    <tr>
+      <td><code>ToastTitle</code></td>
+      <td>An optional title for the toast.</td>
+    </tr>
+    <tr>
+      <td><code>ToastDescription</code></td>
+      <td>The toast message body.</td>
+    </tr>
+    <tr>
+      <td><code>ToastAction</code></td>
+      <td>An action button rendered inside the toast. Requires <code>altText</code> for accessibility.</td>
+    </tr>
+    <tr>
+      <td><code>ToastClose</code></td>
+      <td>A close button that dismisses the toast.</td>
+    </tr>
+    <tr>
+      <td><code>ToastViewport</code></td>
+      <td>The fixed container where toasts are rendered. Place at the end of your provider.</td>
+    </tr>
+  </tbody>
+</table>
+
+## Accessibility
+
+- Built on [Radix UI Toast](https://www.radix-ui.com/primitives/docs/components/toast), which manages focus, keyboard navigation, and screen reader announcements automatically.
+- `ToastAction` requires an `altText` prop describing the action for screen readers.
+- Toasts are announced as polite live regions by default.
+- Supports swipe-to-dismiss and keyboard dismiss via `Escape`.

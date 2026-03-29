@@ -1,0 +1,220 @@
+---
+sidebar_position: 14
+title: Popover
+description: Displays rich content in a portal, triggered by a button.
+---
+
+import { Button } from '@site/src/components/ui/button'
+import { Input } from '@site/src/components/ui/input'
+import { Popover, PopoverTrigger, PopoverContent } from '@site/src/components/ui/popover'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Popover
+
+Displays rich content in a portal, triggered by a button.
+
+## Basic Popover
+
+A popover with a form layout containing labeled inputs.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => (
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="outline" className="uppercase tracking-widest text-xs font-semibold border-border text-foreground hover:bg-secondary hover:text-foreground">Open Popover</Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-80">
+          <div className="space-y-4">
+            <div className="space-y-1">
+              <h4 className="text-sm font-semibold text-foreground">Title</h4>
+              <p className="text-sm text-muted-foreground">Lorem ipsum dolor sit amet consectetur.</p>
+            </div>
+            <div className="grid gap-3">
+              <div className="grid grid-cols-[1fr_2fr] items-center gap-4">
+                <label className="text-sm text-foreground">Label</label>
+                <input className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" placeholder="Input" />
+              </div>
+              <div className="grid grid-cols-[1fr_2fr] items-center gap-4">
+                <label className="text-sm text-foreground">Label</label>
+                <input className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" placeholder="Input" />
+              </div>
+              <div className="grid grid-cols-[1fr_2fr] items-center gap-4">
+                <label className="text-sm text-foreground">Label</label>
+                <input className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" placeholder="Input" />
+              </div>
+              <div className="grid grid-cols-[1fr_2fr] items-center gap-4">
+                <label className="text-sm text-foreground">Label</label>
+                <input className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" placeholder="Input" />
+              </div>
+            </div>
+          </div>
+        </PopoverContent>
+      </Popover>
+    )}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">Open Popover</Button>
+  </PopoverTrigger>
+  <PopoverContent className="w-80">
+    <div className="space-y-4">
+      <div className="space-y-1">
+        <h4 className="text-sm font-semibold">Title</h4>
+        <p className="text-sm text-muted-foreground">
+          Lorem ipsum dolor sit amet consectetur.
+        </p>
+      </div>
+      <div className="grid gap-3">
+        <div className="grid grid-cols-[1fr_2fr] items-center gap-4">
+          <label className="text-sm">Label</label>
+          <Input placeholder="Input" />
+        </div>
+        {/* Repeat for additional fields */}
+      </div>
+    </div>
+  </PopoverContent>
+</Popover>
+```
+
+## Placement
+
+Control the side and alignment of the popover relative to the trigger.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => (
+      <div className="flex gap-4 flex-wrap">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm">Top</Button>
+          </PopoverTrigger>
+          <PopoverContent side="top" className="w-64">
+            <p className="text-sm text-foreground">This popover appears on top.</p>
+          </PopoverContent>
+        </Popover>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm">Right</Button>
+          </PopoverTrigger>
+          <PopoverContent side="right" className="w-64">
+            <p className="text-sm text-foreground">This popover appears on the right.</p>
+          </PopoverContent>
+        </Popover>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm">Bottom</Button>
+          </PopoverTrigger>
+          <PopoverContent side="bottom" className="w-64">
+            <p className="text-sm text-foreground">This popover appears on the bottom.</p>
+          </PopoverContent>
+        </Popover>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm">Left</Button>
+          </PopoverTrigger>
+          <PopoverContent side="left" className="w-64">
+            <p className="text-sm text-foreground">This popover appears on the left.</p>
+          </PopoverContent>
+        </Popover>
+      </div>
+    )}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">Top</Button>
+  </PopoverTrigger>
+  <PopoverContent side="top">
+    <p className="text-sm">This popover appears on top.</p>
+  </PopoverContent>
+</Popover>
+```
+
+## Web3: Token Settings
+
+Configure token parameters using a popover form.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => (
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="outline">Slippage Settings</Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-80">
+          <div className="space-y-4">
+            <div className="space-y-1">
+              <h4 className="text-sm font-semibold text-foreground">Transaction Settings</h4>
+              <p className="text-sm text-muted-foreground">Configure your swap parameters.</p>
+            </div>
+            <div className="grid gap-3">
+              <div className="grid grid-cols-[1fr_2fr] items-center gap-4">
+                <label className="text-sm text-foreground">Slippage</label>
+                <input className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" placeholder="0.5%" />
+              </div>
+              <div className="grid grid-cols-[1fr_2fr] items-center gap-4">
+                <label className="text-sm text-foreground">Deadline</label>
+                <input className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" placeholder="30 min" />
+              </div>
+            </div>
+          </div>
+        </PopoverContent>
+      </Popover>
+    )}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">Slippage Settings</Button>
+  </PopoverTrigger>
+  <PopoverContent className="w-80">
+    <div className="space-y-4">
+      <div className="space-y-1">
+        <h4 className="text-sm font-semibold">Transaction Settings</h4>
+        <p className="text-sm text-muted-foreground">
+          Configure your swap parameters.
+        </p>
+      </div>
+      <div className="grid gap-3">
+        <div className="grid grid-cols-[1fr_2fr] items-center gap-4">
+          <label className="text-sm">Slippage</label>
+          <Input placeholder="0.5%" />
+        </div>
+        <div className="grid grid-cols-[1fr_2fr] items-center gap-4">
+          <label className="text-sm">Deadline</label>
+          <Input placeholder="30 min" />
+        </div>
+      </div>
+    </div>
+  </PopoverContent>
+</Popover>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controlled open state |
+| `defaultOpen` | `boolean` | `false` | Initial open state for uncontrolled usage |
+| `onOpenChange` | `(open: boolean) => void` | — | Callback when open state changes |
+| `side` | `"top" \| "right" \| "bottom" \| "left"` | `"bottom"` | Preferred side of the trigger to render |
+| `align` | `"start" \| "center" \| "end"` | `"center"` | Preferred alignment against the trigger |
+| `sideOffset` | `number` | `4` | Distance from the trigger in pixels |
+
+## Accessibility
+
+The Popover component follows WAI-ARIA popover patterns:
+
+- Focus is moved into the popover when opened
+- Escape key closes the popover
+- Click outside closes the popover
+- Focus returns to trigger when closed

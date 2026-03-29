@@ -1,0 +1,75 @@
+---
+sidebar_position: 16
+title: Success Dialogue
+description: A popup that confirms to the user that an action has been completed.
+---
+
+import { Button } from '@site/src/components/ui/button'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { CircleCheck } from 'lucide-react'
+
+# Success Dialogue
+
+A popup that confirms to the user that an action has been completed.
+
+<ComponentPreview>
+  <div className="w-full max-w-[450px] rounded-lg border border-border bg-card p-6">
+    <div className="flex flex-col items-start gap-4">
+      <CircleCheck className="h-12 w-12 text-success" strokeWidth={1.5} />
+      <div className="flex flex-col gap-1.5">
+        <h4 className="text-base font-bold text-foreground">Success!</h4>
+        <p className="text-sm text-muted-foreground">
+          Your action was completed successfully. You're good to go.
+        </p>
+      </div>
+      <div className="flex w-full justify-end">
+        <Button rounded="full" size="sm" className="uppercase text-xs tracking-wider font-bold px-6">
+          Dismiss
+        </Button>
+      </div>
+    </div>
+  </div>
+</ComponentPreview>
+
+```tsx
+import { Button } from "@/components/ui/button"
+import { CircleCheck } from "lucide-react"
+
+<div className="w-full max-w-[450px] rounded-lg border border-border bg-card p-6">
+  <div className="flex flex-col items-start gap-4">
+    <CircleCheck className="h-12 w-12 text-success" strokeWidth={1.5} />
+    <div className="flex flex-col gap-1.5">
+      <h4 className="text-base font-bold text-foreground">Success!</h4>
+      <p className="text-sm text-muted-foreground">
+        Your action was completed successfully. You're good to go.
+      </p>
+    </div>
+    <div className="flex w-full justify-end">
+      <Button rounded="full" size="sm" className="uppercase text-xs tracking-wider font-bold px-6">
+        Dismiss
+      </Button>
+    </div>
+  </div>
+</div>
+```
+
+## API Reference
+
+This component is composed from existing primitives:
+
+| Element | Component | Purpose |
+|---------|-----------|---------|
+| Container | `div` | Card-like wrapper with border and padding |
+| Icon | `CircleCheck` (lucide-react) | Visual success indicator in a circular frame |
+| Title | `h4` | Success heading |
+| Description | `p` | Confirmation message body |
+| Action | `Button` | Dismiss action to close the dialogue |
+
+## Accessibility
+
+The Success Dialogue follows WAI-ARIA alert patterns:
+
+- Uses semantic heading hierarchy for the success title
+- Icon is decorative and supplements the text content
+- The dismiss action is a focusable button with clear labeling
+- When used as a modal, should be paired with `AlertDialog` for focus trapping and overlay behavior

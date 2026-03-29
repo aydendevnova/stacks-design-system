@@ -1,0 +1,125 @@
+---
+sidebar_position: 30
+title: Tooltip
+description: A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+---
+
+import { Button } from '@site/src/components/ui/button'
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@site/src/components/ui/tooltip'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Tooltip
+
+A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+
+## Basic Tooltip
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="outline" className="uppercase tracking-widest text-xs font-semibold border-border text-foreground hover:bg-secondary hover:text-foreground">Hover</Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Add to library</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    )}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+<TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <Button variant="outline">Hover</Button>
+    </TooltipTrigger>
+    <TooltipContent>
+      <p>Add to library</p>
+    </TooltipContent>
+  </Tooltip>
+</TooltipProvider>
+```
+
+## Placement
+
+Control the side of the tooltip relative to the trigger.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => (
+      <TooltipProvider>
+        <div className="flex gap-4 flex-wrap">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline" size="sm">Top</Button>
+            </TooltipTrigger>
+            <TooltipContent side="top">
+              <p>Tooltip on top</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline" size="sm">Right</Button>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              <p>Tooltip on right</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline" size="sm">Bottom</Button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              <p>Tooltip on bottom</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline" size="sm">Left</Button>
+            </TooltipTrigger>
+            <TooltipContent side="left">
+              <p>Tooltip on left</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      </TooltipProvider>
+    )}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+<TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <Button variant="outline" size="sm">Top</Button>
+    </TooltipTrigger>
+    <TooltipContent side="top">
+      <p>Tooltip on top</p>
+    </TooltipContent>
+  </Tooltip>
+</TooltipProvider>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `delayDuration` | `number` | `700` | Duration from when the mouse enters the trigger until the tooltip opens (on `TooltipProvider`) |
+| `skipDelayDuration` | `number` | `300` | How much time a user has to enter another trigger without incurring a delay again |
+| `side` | `"top" \| "right" \| "bottom" \| "left"` | `"top"` | Preferred side of the trigger to render |
+| `align` | `"start" \| "center" \| "end"` | `"center"` | Preferred alignment against the trigger |
+| `sideOffset` | `number` | `4` | Distance from the trigger in pixels |
+
+## Accessibility
+
+The Tooltip component follows WAI-ARIA tooltip patterns:
+
+- Tooltip appears on hover and keyboard focus
+- Escape key dismisses the tooltip
+- Content is announced by screen readers via `role="tooltip"`
+- Supports `aria-describedby` linking trigger to tooltip content

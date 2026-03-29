@@ -1,0 +1,102 @@
+---
+sidebar_position: 6
+title: Swaps
+description: Allows users to exchange one cryptocurrency token for another, displaying exchange rates, fees, and transaction details before confirmation.
+---
+
+import { Swap, SwapCard, SwapHeader } from '@site/src/components/ui/swap'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Swaps
+
+Allows users to exchange one cryptocurrency token for another, displaying exchange rates, fees, and transaction details before confirmation.
+
+## Default
+
+The full swap component combines a descriptive header with the swap card interface for selecting tokens, entering amounts, and initiating a wallet connection.
+
+<ComponentPreview>
+  <Swap />
+</ComponentPreview>
+
+```tsx
+import { Swap } from "@/components/ui/swap"
+
+function App() {
+  return <Swap />
+}
+```
+
+## Variants
+
+### Swap Card
+
+A standalone swap interface card with tab navigation (Swap, Limit, Buy, Sell), dual token input sections, a swap direction toggle, and a connect wallet action.
+
+<ComponentPreview>
+  <SwapCard />
+</ComponentPreview>
+
+```tsx
+import { SwapCard } from "@/components/ui/swap"
+
+function App() {
+  return <SwapCard />
+}
+```
+
+### Swap Header
+
+The header section can be used independently as a page or section introduction for swap flows.
+
+<ComponentPreview className="!p-3">
+  <SwapHeader />
+</ComponentPreview>
+
+```tsx
+import { SwapHeader } from "@/components/ui/swap"
+
+function App() {
+  return <SwapHeader />
+}
+```
+
+## Design Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--foreground` | `oklch(0.15 0 0)` | Card title, token amounts, currency labels |
+| `--primary` | `oklch(0.7 0.18 45)` | Connect Wallet button background |
+| `--primary-foreground` | `oklch(1 0 0)` | Connect Wallet button text |
+| `#FAF7F4` | Warm off-white | Header background |
+| `#EBEBEB` | Light gray | Active tab pill background |
+| `#E5E5E5` | Border gray | Token selector border, swap toggle border |
+| `#999` | Medium gray | Labels, fiat values, chevron icons |
+| `#666` | Dark gray | Description text, settings icon, swap toggle icon |
+
+## Anatomy
+
+1. **Swap Header** — Rounded container with warm background, title, and multi-line description.
+2. **Tab Navigation** — Segmented control with Swap, Limit, Buy, and Sell options using ContentSwitcher, plus a settings gear icon.
+3. **Token Input (Pay)** — Uppercase label, monospace amount display (DM Mono), fiat equivalent, and token selector with icon and chevron.
+4. **Swap Toggle** — Circular bordered button with bidirectional arrows to reverse token pair direction.
+5. **Token Input (Receive)** — Same structure as Pay section for the output token.
+6. **Connect Wallet Button** — Full-width primary action button with uppercase label.
+
+## Usage Guidelines
+
+- Use the full **Swap** component as the primary entry point for token exchange flows.
+- The **SwapCard** can be embedded standalone within dashboards or trading interfaces where the header context is provided externally.
+- The tab navigation supports Swap, Limit, Buy, and Sell modes — in production, switching tabs should update the card's input fields and behavior accordingly.
+- Token selectors should open a searchable token list modal when clicked, allowing users to browse and select from available tokens.
+- The swap toggle button reverses the pay and receive tokens, swapping their positions and amounts.
+- The Connect Wallet button should transition to a "Swap" or "Review" action once a wallet is connected and amounts are entered.
+
+## Accessibility
+
+- Tab navigation is keyboard-navigable via the underlying Radix Toggle Group primitive.
+- Token selector buttons and the swap toggle are keyboard-focusable with hover states for pointer users.
+- Token icons include descriptive `alt` text with the currency symbol.
+- The "PAY" labels use semantic uppercase styling (CSS) rather than hardcoded uppercase text, preserving screen reader readability.
+- The Connect Wallet button uses sufficient color contrast against its primary background.
+- Amount values use DM Mono for visual distinction, maintaining readability at all supported sizes.

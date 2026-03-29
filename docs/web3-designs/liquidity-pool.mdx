@@ -1,0 +1,68 @@
+---
+sidebar_position: 4
+title: Liquidity Pool
+description: A component displaying liquidity pool information including token pairs, fees, performance metrics, and feature indicators.
+---
+
+import { LiquidityPool } from '@site/src/components/ui/liquidity-pool'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Liquidity pool
+
+A component displaying liquidity pool information including token pairs, fees, performance metrics, and feature indicators.
+
+## Default
+
+The full liquidity pool table with token-pair filter dropdowns, a search bar, and a scrollable data table showing pool metrics and feature badges.
+
+<ComponentPreview className="!p-3">
+  <LiquidityPool />
+</ComponentPreview>
+
+```tsx
+import { LiquidityPool } from "@/components/ui/liquidity-pool"
+
+function App() {
+  return <LiquidityPool />
+}
+```
+
+## Anatomy
+
+1. **Header** — Title and description text introducing the component.
+2. **Filter bar** — Two token selector dropdowns (with optional token icon) and a search input with magnifying glass icon.
+3. **Table header** — Uppercase column labels: Pool, TVL, Yield (24h), Volume (24h), Feature.
+4. **Pool cell** — Two overlapping circular token icons, a "TOKEN0 / TOKEN1" label, and a fee tier badge (e.g. 0.3%).
+5. **Metrics cells** — TVL, yield, and volume values rendered in medium-weight text.
+6. **Feature badge** — A colored pill indicating the pool's management feature (Arrakis, None, Unknown).
+
+## Design Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--foreground` | `oklch(0.15 0 0)` | Table text, token pair names |
+| `--ring` | `oklch(0.7 0.18 45)` | Search input focus ring |
+| `#FAF7F4` | Warm off-white | Component background |
+| `#E0E0E0` | Light gray | Filter and input borders |
+| `#999` | Medium gray | Placeholder text, column headers |
+| `#E8713A` | Orange | Arrakis feature badge |
+| `#4A4A4A` | Charcoal | None feature badge |
+| `#D94B2B` | Red-orange | Unknown feature badge |
+| `#F0F0F0` | Light gray | Fee tier badge background |
+
+## Usage Guidelines
+
+- Use this component in DeFi dashboards to display available liquidity pools with key performance metrics at a glance.
+- The filter bar allows users to narrow pools by token pair; the search input supports filtering by token name, pool address, or feature.
+- Feature badges communicate whether a pool is managed by an external protocol (e.g. Arrakis), unmanaged, or in an unknown state. Color coding provides instant visual distinction.
+- Pool rows should be sortable by TVL, yield, or volume in a production implementation.
+- The fee tier badge (e.g. "0.3%") communicates the swap fee and helps users compare pools of the same pair with different fee tiers.
+
+## Accessibility
+
+- Table uses semantic `<table>`, `<thead>`, `<tbody>`, `<th>`, and `<td>` elements for screen reader compatibility.
+- Column headers use `text-left` or `text-right` alignment matching data cells.
+- Token icons include descriptive `alt` text with the token name.
+- Feature badges convey state through both color and text label — color is not the sole indicator.
+- Filter inputs and buttons are keyboard-focusable and activatable with Enter/Space.
+- Search input includes a visible placeholder describing expected input.

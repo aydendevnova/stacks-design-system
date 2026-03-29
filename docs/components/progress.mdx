@@ -1,0 +1,39 @@
+---
+sidebar_position: 17
+title: Progress
+description: Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
+---
+
+import { Progress } from '@site/src/components/ui/progress'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Progress
+
+Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
+
+<ComponentPreview>
+  <div style={{width: '100%', display: 'flex', justifyContent: 'center', padding: '4rem 0'}}>
+    <div style={{width: '50%'}}>
+      <Progress value={66} />
+    </div>
+  </div>
+</ComponentPreview>
+
+```tsx
+import { Progress } from "@/components/ui/progress"
+
+<Progress value={66} />
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | `0` | The progress value between 0 and 100 |
+| `max` | `number` | `100` | The maximum progress value |
+
+## Accessibility
+
+- Uses `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, and `aria-valuemax` automatically via Radix
+- Screen readers announce progress updates
+- Supports all standard HTML div attributes for custom ARIA properties

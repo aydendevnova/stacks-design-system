@@ -1,0 +1,86 @@
+---
+sidebar_position: 26
+title: Token Selector
+description: A dropdown component that allows users to search and select tokens from a list.
+---
+
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { TokenSelectorDemo } from '@site/src/components/demos/TokenSelectorDemo'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Token Selector
+
+A dropdown component that allows users to search and select tokens from a list.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => <TokenSelectorDemo />}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import { TokenSelector, type Token } from "@/components/ui/token-selector"
+
+const userTokens: Token[] = [
+  { symbol: "ETH", name: "Ethereum", icon: "/img/eth.png", balance: "70.124" },
+  { symbol: "BTC", name: "Bitcoin", icon: "/img/btc.png", balance: "2.451" },
+]
+
+const popularTokens: Token[] = [
+  { symbol: "STX", name: "Stacks", icon: "/img/stx-logo.png" },
+  { symbol: "DAI", name: "Dai", icon: "/img/dai.png" },
+]
+
+const quickTokens: Token[] = [
+  { symbol: "ETH", name: "Ethereum", icon: "/img/eth.png" },
+  { symbol: "BTC", name: "Bitcoin", icon: "/img/btc.png" },
+  { symbol: "STX", name: "Stacks", icon: "/img/stx-logo.png" },
+  { symbol: "DAI", name: "Dai", icon: "/img/dai.png" },
+]
+
+function MyComponent() {
+  const [selected, setSelected] = React.useState<Token>()
+
+  return (
+    <TokenSelector
+      tokens={userTokens}
+      popularTokens={popularTokens}
+      quickSelectTokens={quickTokens}
+      value={selected}
+      onSelect={setSelected}
+    />
+  )
+}
+```
+
+## API Reference
+
+### Token
+
+The token data shape used throughout the component.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `symbol` | `string` | Yes | Token ticker symbol (e.g. "ETH") |
+| `name` | `string` | Yes | Full token name (e.g. "Ethereum") |
+| `icon` | `string` | Yes | Path to the token icon image |
+| `balance` | `string` | No | User's balance of this token |
+
+### TokenSelector
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `tokens` | `Token[]` | — | Tokens the user holds (shown under "Your Tokens") |
+| `popularTokens` | `Token[]` | `[]` | Popular tokens (shown under "Popular Tokens") |
+| `quickSelectTokens` | `Token[]` | `[]` | Tokens shown as quick-select pills at the top |
+| `value` | `Token` | — | Currently selected token |
+| `onSelect` | `(token: Token) => void` | — | Callback when a token is selected |
+| `trigger` | `ReactNode` | — | Custom trigger element (defaults to built-in button) |
+| `placeholder` | `string` | `"Search categories"` | Search input placeholder text |
+
+## Accessibility
+
+- Built on top of the Dialog primitive with full focus trapping
+- Search input is auto-focused for keyboard navigation
+- Escape key closes the selector
+- Token list items are keyboard-navigable buttons

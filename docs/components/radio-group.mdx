@@ -1,0 +1,106 @@
+---
+sidebar_position: 17
+title: Radio Group
+description: A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
+---
+
+import { RadioGroup, RadioGroupItem } from '@site/src/components/ui/radio-group'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Radio Group
+
+A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
+
+<ComponentPreview>
+  <RadioGroup defaultValue="option-2">
+    <div className="flex items-center gap-3">
+      <RadioGroupItem value="option-1" id="option-1" />
+      <label htmlFor="option-1" className="text-sm font-medium text-foreground cursor-pointer">Label</label>
+    </div>
+    <div className="flex items-center gap-3">
+      <RadioGroupItem value="option-2" id="option-2" />
+      <label htmlFor="option-2" className="text-sm font-medium text-foreground cursor-pointer">Label</label>
+    </div>
+    <div className="flex items-center gap-3">
+      <RadioGroupItem value="option-3" id="option-3" />
+      <label htmlFor="option-3" className="text-sm font-medium text-foreground cursor-pointer">Label</label>
+    </div>
+  </RadioGroup>
+</ComponentPreview>
+
+```tsx
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+
+<RadioGroup defaultValue="option-2">
+  <div className="flex items-center gap-3">
+    <RadioGroupItem value="option-1" id="option-1" />
+    <label htmlFor="option-1">Label</label>
+  </div>
+  <div className="flex items-center gap-3">
+    <RadioGroupItem value="option-2" id="option-2" />
+    <label htmlFor="option-2">Label</label>
+  </div>
+  <div className="flex items-center gap-3">
+    <RadioGroupItem value="option-3" id="option-3" />
+    <label htmlFor="option-3">Label</label>
+  </div>
+</RadioGroup>
+```
+
+## Disabled
+
+Radio items can be individually disabled to prevent interaction.
+
+<ComponentPreview>
+  <RadioGroup defaultValue="option-1">
+    <div className="flex items-center gap-3">
+      <RadioGroupItem value="option-1" id="disabled-1" />
+      <label htmlFor="disabled-1" className="text-sm font-medium text-foreground cursor-pointer">Available</label>
+    </div>
+    <div className="flex items-center gap-3">
+      <RadioGroupItem value="option-2" id="disabled-2" disabled />
+      <label htmlFor="disabled-2" className="text-sm font-medium text-muted-foreground cursor-not-allowed">Disabled</label>
+    </div>
+    <div className="flex items-center gap-3">
+      <RadioGroupItem value="option-3" id="disabled-3" />
+      <label htmlFor="disabled-3" className="text-sm font-medium text-foreground cursor-pointer">Available</label>
+    </div>
+  </RadioGroup>
+</ComponentPreview>
+
+```tsx
+<RadioGroup defaultValue="option-1">
+  <div className="flex items-center gap-3">
+    <RadioGroupItem value="option-1" id="disabled-1" />
+    <label htmlFor="disabled-1">Available</label>
+  </div>
+  <div className="flex items-center gap-3">
+    <RadioGroupItem value="option-2" id="disabled-2" disabled />
+    <label htmlFor="disabled-2">Disabled</label>
+  </div>
+  <div className="flex items-center gap-3">
+    <RadioGroupItem value="option-3" id="disabled-3" />
+    <label htmlFor="disabled-3">Available</label>
+  </div>
+</RadioGroup>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultValue` | `string` | — | The value of the radio item that should be checked by default |
+| `value` | `string` | — | The controlled value of the radio item to check |
+| `onValueChange` | `(value: string) => void` | — | Callback when the value changes |
+| `disabled` | `boolean` | `false` | When true, prevents the user from interacting with radio items |
+| `orientation` | `"horizontal" \| "vertical"` | `"vertical"` | The orientation of the radio group |
+
+## Accessibility
+
+The Radio Group component follows WAI-ARIA radio group patterns:
+
+- Uses `role="radiogroup"` on the container
+- Each radio button uses `role="radio"` with proper `aria-checked` state
+- Supports keyboard navigation (Arrow keys to move between items, Space to select)
+- Focus management follows roving tabindex pattern
+- Labels are associated via `htmlFor` / `id` pairing

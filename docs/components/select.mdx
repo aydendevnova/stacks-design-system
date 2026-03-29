@@ -1,0 +1,120 @@
+---
+sidebar_position: 17
+title: Select
+description: Displays a list of options for the user to pick from—triggered by a button.
+---
+
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { SelectDemo } from '@site/src/components/demos/SelectDemo'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Select
+
+Displays a list of options for the user to pick from—triggered by a button.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => <SelectDemo />}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+const tokens = [
+  { value: "eth", label: "ETH", icon: "/img/eth.png" },
+  { value: "btc", label: "BTC", icon: "/img/btc.png" },
+  { value: "stx", label: "STX", icon: "/img/stx-logo.png" },
+  { value: "dai", label: "DAI", icon: "/img/dai.png" },
+  { value: "ltc", label: "LTC", icon: "/img/ltc.png" },
+  { value: "usdt", label: "USDT", icon: "/img/tether.png" },
+]
+
+<Select defaultValue="eth">
+  <SelectTrigger className="w-[260px]">
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent>
+    {tokens.map((token) => (
+      <SelectItem key={token.value} value={token.value}>
+        <div className="flex items-center gap-2">
+          <img
+            src={token.icon}
+            alt={token.label}
+            className="h-6 w-6 rounded-full"
+          />
+          <span>{token.label}</span>
+        </div>
+      </SelectItem>
+    ))}
+  </SelectContent>
+</Select>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | Controlled value of the select |
+| `defaultValue` | `string` | — | Default value for uncontrolled usage |
+| `onValueChange` | `(value: string) => void` | — | Callback when value changes |
+| `open` | `boolean` | — | Controlled open state |
+| `defaultOpen` | `boolean` | — | Default open state |
+| `onOpenChange` | `(open: boolean) => void` | — | Callback when open state changes |
+| `disabled` | `boolean` | `false` | Disables the select |
+
+### SelectTrigger
+
+The button that opens the select menu.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | — | Additional CSS classes |
+| `asChild` | `boolean` | `false` | Merge props onto child element |
+
+### SelectContent
+
+The popup container for select items. Renders in a portal.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `position` | `"popper" \| "item-aligned"` | `"popper"` | Positioning mode |
+| `sideOffset` | `number` | — | Distance from the trigger |
+
+### SelectItem
+
+An interactive item within the select.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | The value submitted when selected |
+| `disabled` | `boolean` | `false` | Prevents selection |
+
+### SelectValue
+
+Displays the selected value in the trigger. Accepts a `placeholder` prop for empty state.
+
+### SelectGroup / SelectLabel
+
+Group related items with a non-interactive label.
+
+### SelectSeparator
+
+A horizontal divider between groups of items.
+
+## Accessibility
+
+The Select component follows WAI-ARIA listbox patterns:
+
+- Opens on click or Enter/Space on the trigger
+- Arrow keys navigate between items
+- Enter/Space selects the focused item
+- Escape closes the dropdown
+- Type-ahead character navigation is supported
+- Selected item is announced to screen readers

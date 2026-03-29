@@ -1,0 +1,140 @@
+---
+sidebar_position: 18
+title: Stepper
+description: A visual indicator that guides users through a multi-step process, showing their current position, completed steps, and upcoming steps.
+---
+
+import { Stepper } from '@site/src/components/ui/stepper'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Stepper
+
+A visual indicator that guides users through a multi-step process, showing their current position, completed steps, and upcoming steps.
+
+<ComponentPreview>
+  <div style={{width: '100%', maxWidth: '500px', padding: '2rem 0'}}>
+    <Stepper
+      currentStep={1}
+      steps={[
+        { label: 'Label', helperText: 'Helper Text' },
+        { label: 'Label', helperText: 'Helper Text' },
+        { label: 'Label', helperText: 'Helper Text' },
+      ]}
+    />
+  </div>
+</ComponentPreview>
+
+```tsx
+import { Stepper } from "@/components/ui/stepper"
+
+<Stepper
+  currentStep={1}
+  steps={[
+    { label: "Label", helperText: "Helper Text" },
+    { label: "Label", helperText: "Helper Text" },
+    { label: "Label", helperText: "Helper Text" },
+  ]}
+/>
+```
+
+## Examples
+
+### All completed
+
+<ComponentPreview>
+  <div style={{width: '100%', maxWidth: '500px', padding: '2rem 0'}}>
+    <Stepper
+      currentStep={3}
+      steps={[
+        { label: 'Confirm', helperText: 'Review details' },
+        { label: 'Sign', helperText: 'Approve transaction' },
+        { label: 'Complete', helperText: 'Transaction sent' },
+      ]}
+    />
+  </div>
+</ComponentPreview>
+
+```tsx
+<Stepper
+  currentStep={3}
+  steps={[
+    { label: "Confirm", helperText: "Review details" },
+    { label: "Sign", helperText: "Approve transaction" },
+    { label: "Complete", helperText: "Transaction sent" },
+  ]}
+/>
+```
+
+### First step active
+
+<ComponentPreview>
+  <div style={{width: '100%', maxWidth: '500px', padding: '2rem 0'}}>
+    <Stepper
+      currentStep={0}
+      steps={[
+        { label: 'Connect', helperText: 'Link wallet' },
+        { label: 'Approve', helperText: 'Set allowance' },
+        { label: 'Swap', helperText: 'Execute trade' },
+      ]}
+    />
+  </div>
+</ComponentPreview>
+
+```tsx
+<Stepper
+  currentStep={0}
+  steps={[
+    { label: "Connect", helperText: "Link wallet" },
+    { label: "Approve", helperText: "Set allowance" },
+    { label: "Swap", helperText: "Execute trade" },
+  ]}
+/>
+```
+
+### Without helper text
+
+<ComponentPreview>
+  <div style={{width: '100%', maxWidth: '500px', padding: '2rem 0'}}>
+    <Stepper
+      currentStep={1}
+      steps={[
+        { label: 'Step 1' },
+        { label: 'Step 2' },
+        { label: 'Step 3' },
+        { label: 'Step 4' },
+      ]}
+    />
+  </div>
+</ComponentPreview>
+
+```tsx
+<Stepper
+  currentStep={1}
+  steps={[
+    { label: "Step 1" },
+    { label: "Step 2" },
+    { label: "Step 3" },
+    { label: "Step 4" },
+  ]}
+/>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `steps` | `Step[]` | — | Array of step objects with `label` and optional `helperText` |
+| `currentStep` | `number` | — | Zero-based index of the current active step. Steps before this are marked completed. |
+
+### Step
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `label` | `string` | Yes | The label displayed below the step indicator |
+| `helperText` | `string` | No | Secondary text displayed below the label |
+
+## Accessibility
+
+- Each step circle visually communicates state through color and iconography (checkmark for completed, filled for active, outlined for upcoming)
+- Step labels and helper text provide clear context for each stage of the process
+- Color is not the sole indicator of state — shape and icon differences reinforce status

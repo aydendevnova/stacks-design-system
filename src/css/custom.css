@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@400;500;600;700&display=swap');
+
 @tailwind components;
 @tailwind utilities;
 
@@ -89,8 +91,36 @@
   transform: rotate(180deg);
 }
 
+/* Radio group item borders */
+.stacks-radio-item {
+  border: 1.5px solid #c8c8c8 !important;
+  border-style: solid !important;
+}
+
+.stacks-radio-item[data-state="checked"] {
+  border-color: var(--primary) !important;
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+@keyframes toast-slide-in {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toast-slide-out {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+[data-state="open"][data-radix-toast-root] {
+  animation: toast-slide-in 0.3s ease-out;
+}
+
+[data-state="closed"][data-radix-toast-root] {
+  animation: toast-slide-out 0.2s ease-in;
 }
 
 /* ── Docusaurus / Infima overrides ── */

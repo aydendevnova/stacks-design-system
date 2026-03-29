@@ -1,0 +1,91 @@
+---
+sidebar_position: 27
+title: Transaction Confirmation Dialog
+description: A modal that displays transaction details for user review before execution, including token amounts, fees, and confirmation actions.
+---
+
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { TransactionConfirmationDemo } from '@site/src/components/demos/TransactionConfirmationDemo'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Transaction Confirmation Dialog
+
+A modal that displays transaction details for user review before execution, including token amounts, fees, and confirmation actions.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => <TransactionConfirmationDemo />}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import { TransactionConfirmation } from "@/components/ui/transaction-confirmation"
+
+<TransactionConfirmation
+  amount="123.00"
+  token="USDT"
+  details={[
+    {
+      label: "Transaction Address",
+      value: (
+        <a href="#" className="font-medium text-primary underline">
+          890as....09a
+        </a>
+      ),
+    },
+    {
+      label: "Payout Address",
+      value: <span className="font-medium">890as....09a</span>,
+    },
+    {
+      label: "Network Commission",
+      value: (
+        <div className="flex flex-col items-end">
+          <span>
+            <span className="font-medium">1.95</span>{" "}
+            <span className="text-muted-foreground">USDT</span>
+          </span>
+          <span className="text-xs text-muted-foreground">$1.95</span>
+        </div>
+      ),
+    },
+    {
+      label: "Date/Time",
+      value: (
+        <span>
+          <span className="font-medium">17.07.2024</span>{" "}
+          <span className="text-muted-foreground">10:00PM</span>
+        </span>
+      ),
+    },
+  ]}
+/>
+```
+
+## API Reference
+
+### TransactionConfirmation
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `message` | `string` | `"The funds have been sent to your wallet"` | Status message shown below the icon |
+| `amount` | `string` | — | Transaction amount to display |
+| `token` | `string` | — | Token symbol (e.g. "USDT") |
+| `details` | `TransactionDetail[]` | — | Array of label/value pairs for the details section |
+| `onConfirm` | `() => void` | — | Callback when confirmation button is clicked |
+| `confirmLabel` | `string` | `"GOT IT"` | Text for the confirmation button |
+| `className` | `string` | — | Additional CSS classes |
+
+### TransactionDetail
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `label` | `string` | Left-side label text |
+| `value` | `ReactNode` | Right-side value content (supports rich formatting) |
+
+## Accessibility
+
+- Uses semantic structure with clear visual hierarchy
+- Confirmation button is a focusable interactive element
+- When used as a modal, should be paired with `Dialog` for focus trapping and overlay behavior
+- Transaction address links are keyboard-navigable

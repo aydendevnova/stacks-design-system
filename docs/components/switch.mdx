@@ -1,0 +1,67 @@
+---
+sidebar_position: 22
+title: Switch
+description: A control that allows the user to toggle between checked and not checked.
+---
+
+import { Switch } from '@site/src/components/ui/switch'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Switch
+
+A control that allows the user to toggle between checked and not checked.
+
+<ComponentPreview>
+  <div className="flex items-center gap-3">
+    <Switch id="airplane-mode" />
+    <label htmlFor="airplane-mode" className="text-sm font-medium text-foreground cursor-pointer">Airplane mode</label>
+  </div>
+</ComponentPreview>
+
+```tsx
+import { Switch } from "@/components/ui/switch"
+
+<div className="flex items-center gap-3">
+  <Switch id="airplane-mode" />
+  <label htmlFor="airplane-mode">Airplane mode</label>
+</div>
+```
+
+## Disabled
+
+The switch can be disabled to prevent interaction.
+
+<ComponentPreview>
+  <div className="flex items-center gap-3">
+    <Switch id="disabled-switch" disabled />
+    <label htmlFor="disabled-switch" className="text-sm font-medium text-muted-foreground cursor-not-allowed">Disabled</label>
+  </div>
+</ComponentPreview>
+
+```tsx
+<div className="flex items-center gap-3">
+  <Switch id="disabled-switch" disabled />
+  <label htmlFor="disabled-switch">Disabled</label>
+</div>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | — | The controlled checked state of the switch |
+| `defaultChecked` | `boolean` | `false` | The checked state when initially rendered |
+| `onCheckedChange` | `(checked: boolean) => void` | — | Callback when the checked state changes |
+| `disabled` | `boolean` | `false` | When true, prevents the user from interacting with the switch |
+| `required` | `boolean` | `false` | When true, indicates the switch must be checked for form submission |
+| `name` | `string` | — | The name of the switch used when submitting a form |
+| `value` | `string` | `"on"` | The value given as data when submitted with a name |
+
+## Accessibility
+
+The Switch component follows WAI-ARIA switch patterns:
+
+- Uses `role="switch"` with proper `aria-checked` state
+- Supports keyboard interaction (Space to toggle)
+- Can be associated with a label via `htmlFor` / `id` pairing
+- Focus ring is visible for keyboard navigation

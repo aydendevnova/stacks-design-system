@@ -1,0 +1,112 @@
+---
+sidebar_position: 22
+title: Table
+description: A responsive table component.
+---
+
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { TableDemo } from '@site/src/components/demos/TableDemo'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Table
+
+A responsive table component.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => <TableDemo />}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Badge } from "@/components/ui/badge"
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-[50px]">
+        <Checkbox />
+      </TableHead>
+      <TableHead>Label</TableHead>
+      <TableHead>Label</TableHead>
+      <TableHead>Label</TableHead>
+      <TableHead>Label</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <Checkbox />
+      </TableCell>
+      <TableCell>Label</TableCell>
+      <TableCell>Label</TableCell>
+      <TableCell>Label</TableCell>
+      <TableCell>
+        <Badge>Default</Badge>
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+## API Reference
+
+### Table
+
+The root table wrapper with horizontal scroll support.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | — | Additional CSS classes |
+
+### TableHeader
+
+Wraps `<thead>` with bottom border styling.
+
+### TableBody
+
+Wraps `<tbody>`, removes border from the last row.
+
+### TableRow
+
+A table row with hover and selected states.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `data-state` | `"selected"` | — | Highlights the row when selected |
+
+### TableHead
+
+A header cell with uppercase label styling.
+
+### TableCell
+
+A standard data cell.
+
+### Checkbox
+
+An interactive checkbox built on Radix UI.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean \| "indeterminate"` | — | Controlled checked state |
+| `defaultChecked` | `boolean` | — | Default checked state |
+| `onCheckedChange` | `(checked: boolean) => void` | — | Callback when state changes |
+| `disabled` | `boolean` | `false` | Disables the checkbox |
+
+## Accessibility
+
+- Checkboxes support `aria-label` for screen readers
+- Header checkbox toggles all rows with indeterminate state support
+- Rows reflect selection via `data-state="selected"`
+- Table is wrapped in a scrollable container for responsive overflow
+- Arrow key navigation and Space/Enter toggle on checkboxes

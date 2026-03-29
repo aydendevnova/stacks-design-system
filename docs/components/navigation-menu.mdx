@@ -1,0 +1,120 @@
+---
+sidebar_position: 16
+title: Navigation Menu
+description: A collection of links for navigating websites.
+---
+
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from '@site/src/components/ui/navigation-menu'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Navigation Menu
+
+A collection of links for navigating websites.
+
+<ComponentPreview column>
+  <nav style={{width: '100%', fontFamily: "'DM Sans', sans-serif", display: 'flex', background: '#f2f1ef', borderRadius: '8px', padding: '6px'}}>
+    <a href="#" style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', fontSize: '13.5px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#1a1a2e', borderRadius: '6px', textDecoration: 'none'}}>Home</a>
+    <a href="#" style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', fontSize: '13.5px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#1a1a2e', borderRadius: '6px', textDecoration: 'none'}}>About</a>
+    <a href="#" style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', fontSize: '13.5px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#1a1a2e', borderRadius: '6px', textDecoration: 'none'}}>Contact</a>
+    <a href="#" style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', fontSize: '13.5px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#1a1a2e', borderRadius: '6px', textDecoration: 'none'}}>Support</a>
+    <a href="#" style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', fontSize: '13.5px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#1a1a2e', borderRadius: '6px', textDecoration: 'none'}}>Wallet</a>
+  </nav>
+</ComponentPreview>
+
+```tsx
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+} from "@/components/ui/navigation-menu"
+
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="#">Home</NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="#">About</NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="#">Contact</NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="#">Support</NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="#">Wallet</NavigationMenuLink>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+```
+
+## API Reference
+
+### NavigationMenu
+
+The root component that wraps the navigation menu.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultValue` | `string` | — | Default active value for uncontrolled usage |
+| `value` | `string` | — | Controlled active value |
+| `onValueChange` | `(value: string) => void` | — | Callback when active value changes |
+| `delayDuration` | `number` | `200` | Duration from when the mouse enters a trigger until the content opens |
+| `skipDelayDuration` | `number` | `300` | How much time a user has to enter another trigger without incurring a delay again |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | The orientation of the menu |
+
+### NavigationMenuList
+
+Contains the top-level menu items. Renders as an unordered list.
+
+### NavigationMenuItem
+
+A top-level menu item. Can contain a trigger and content for submenus, or a direct link.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | Unique value for controlled state |
+
+### NavigationMenuTrigger
+
+The button that opens a submenu. Renders with a caret indicator.
+
+### NavigationMenuContent
+
+The content area that appears when a trigger is activated. Supports animated enter/exit transitions.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `forceMount` | `boolean` | — | Force mount the content for animation control |
+
+### NavigationMenuLink
+
+A navigational link. Use `asChild` to compose with framework-specific link components.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `asChild` | `boolean` | `false` | Merge props onto child element |
+| `active` | `boolean` | — | Whether the link is currently active |
+| `onSelect` | `(event: Event) => void` | — | Callback when the link is selected |
+
+### NavigationMenuViewport
+
+The viewport that contains the submenu content. Automatically rendered by the root component.
+
+### NavigationMenuIndicator
+
+An optional indicator element that highlights the active trigger.
+
+## Accessibility
+
+The Navigation Menu component follows WAI-ARIA navigation patterns:
+
+- Uses semantic `<nav>` element for landmark navigation
+- List structure conveys grouping to screen readers
+- Keyboard navigation with Arrow keys moves between items
+- Enter and Space activate links and triggers
+- Escape closes any open submenus
+- Supports `aria-current` for indicating the active page
+- Focus management follows the roving tabindex pattern

@@ -1,0 +1,110 @@
+---
+sidebar_position: 5
+title: Staking
+description: Enables users to lock their cryptocurrency for a specified period to earn rewards, showing staking amounts, lock periods, APY rates, and accumulated earnings.
+---
+
+import { Staking, ReviewOrder, StakingHeader } from '@site/src/components/ui/staking'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Staking
+
+Enables users to lock their cryptocurrency for a specified period to earn rewards, showing staking amounts, lock periods, APY rates, and accumulated earnings.
+
+## Default
+
+The full staking component combines a descriptive header with a Review Order card for confirming a token conversion within a staking flow.
+
+<ComponentPreview>
+  <Staking />
+</ComponentPreview>
+
+```tsx
+import { Staking } from "@/components/ui/staking"
+
+function App() {
+  return <Staking />
+}
+```
+
+## Variants
+
+### Review Order
+
+A standalone review card for confirming a swap or conversion. Displays the tokens being exchanged with fiat values, a network fee disclosure, and a primary action button.
+
+<ComponentPreview>
+  <ReviewOrder />
+</ComponentPreview>
+
+```tsx
+import { ReviewOrder } from "@/components/ui/staking"
+
+function App() {
+  return (
+    <ReviewOrder
+      payAmount="5.4"
+      payCurrency="ETH"
+      payFiat="17758.21"
+      receiveAmount="5.12"
+      receiveCurrency="WETH"
+      receiveFiat="17758.21"
+      networkFee="<0.001 ETH"
+    />
+  )
+}
+```
+
+### Staking Header
+
+The header section can be used independently as a page or section introduction for staking flows.
+
+<ComponentPreview className="!p-3">
+  <StakingHeader />
+</ComponentPreview>
+
+```tsx
+import { StakingHeader } from "@/components/ui/staking"
+
+function App() {
+  return <StakingHeader />
+}
+```
+
+## Design Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--foreground` | `oklch(0.15 0 0)` | Card title, token amounts, currency labels |
+| `--primary` | `oklch(0.7 0.18 45)` | Convert button background |
+| `--primary-foreground` | `oklch(1 0 0)` | Convert button text |
+| `#FAF7F4` | Warm off-white | Header background |
+| `#F5F5F5` | Light gray | Token row background |
+| `#E5E5E5` | Border gray | Network fee row border |
+| `#999` | Medium gray | Labels, info icon, fiat values |
+| `#666` | Dark gray | Description text, network fee label |
+
+## Anatomy
+
+1. **Staking Header** — Rounded container with warm background, title, and multi-line description.
+2. **Review Order Header** — Back navigation button, centered title, and info icon.
+3. **Token Row (You Pay)** — Token icon, uppercase label, amount with currency, and fiat equivalent.
+4. **Token Row (You Receive)** — Same structure as You Pay with an additional swap indicator badge on the token icon.
+5. **Network Fee** — Bordered row with fee label and expandable fee value with chevron.
+6. **Convert Button** — Full-width primary action button with uppercase label.
+
+## Usage Guidelines
+
+- Use the full **Staking** component as a confirmation step before executing a stake or conversion transaction.
+- The **Review Order** card should appear after the user has configured their staking parameters (amount, duration, token pair) and is ready to confirm.
+- Display fiat equivalents alongside token amounts so users can verify the dollar value of their transaction.
+- The network fee row uses a chevron to indicate expandability — in production, tapping should reveal fee breakdown details (base fee, priority fee, estimated time).
+- The Convert button should be disabled until the user has reviewed all details. Consider adding a loading state during transaction submission.
+
+## Accessibility
+
+- Navigation and info buttons are keyboard-focusable and include hover states for pointer users.
+- Token icons include descriptive `alt` text with the currency name.
+- The "YOU PAY" and "YOU RECEIVE" labels use semantic uppercase styling (CSS) rather than hardcoded uppercase text, preserving screen reader readability.
+- The Convert button uses sufficient color contrast against its primary background.
+- Network fee information is available as text, not encoded solely in visual layout.

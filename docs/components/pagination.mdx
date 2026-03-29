@@ -1,0 +1,185 @@
+---
+sidebar_position: 17
+title: Pagination
+description: Pagination with page navigation, next and previous links.
+---
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+} from '@site/src/components/ui/pagination'
+import { PaginationDemo } from '@site/src/components/demos/PaginationDemo'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Pagination
+
+Pagination with page navigation, next and previous links.
+
+## Default
+
+<ComponentPreview>
+  <Pagination>
+    <PaginationContent>
+      <PaginationItem>
+        <PaginationPrevious href="#" />
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#">1</PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#">2</PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#">3</PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationEllipsis />
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationNext href="#" />
+      </PaginationItem>
+    </PaginationContent>
+  </Pagination>
+</ComponentPreview>
+
+```tsx
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+} from "@/components/ui/pagination"
+
+<Pagination>
+  <PaginationContent>
+    <PaginationItem>
+      <PaginationPrevious href="#" />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">1</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">2</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">3</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationEllipsis />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationNext href="#" />
+    </PaginationItem>
+  </PaginationContent>
+</Pagination>
+```
+
+## Many Pages
+
+Use `generatePaginationRange` to compute which pages and ellipses to render. Clicking an ellipsis jumps forward or backward by 5 pages.
+
+<ComponentPreview>
+  <BrowserOnly>{() => <PaginationDemo />}</BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import { useState } from "react"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+  generatePaginationRange,
+} from "@/components/ui/pagination"
+
+function PaginationDemo() {
+  const [currentPage, setCurrentPage] = useState(1)
+  const totalPages = 20
+  const range = generatePaginationRange(currentPage, totalPages)
+
+  function goTo(page: number) {
+    setCurrentPage(Math.max(1, Math.min(page, totalPages)))
+  }
+
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious onClick={() => goTo(currentPage - 1)} />
+        </PaginationItem>
+        {range.map((item, i) =>
+          item === "ellipsis" ? (
+            <PaginationItem key={`ellipsis-${i}`}>
+              <PaginationEllipsis
+                onClick={() =>
+                  goTo(i < range.length / 2 ? currentPage - 5 : currentPage + 5)
+                }
+              />
+            </PaginationItem>
+          ) : (
+            <PaginationItem key={item}>
+              <PaginationLink
+                onClick={() => goTo(item)}
+                isActive={item === currentPage}
+              >
+                {item}
+              </PaginationLink>
+            </PaginationItem>
+          )
+        )}
+        <PaginationItem>
+          <PaginationNext onClick={() => goTo(currentPage + 1)} />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  )
+}
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `href` | `string` | — | The link destination for the pagination item |
+| `isActive` | `boolean` | `false` | Highlights the current page number |
+| `onClick` | `() => void` | — | Click handler (on `PaginationEllipsis`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`) |
+
+### Subcomponents
+
+| Component | Description |
+|-----------|-------------|
+| `Pagination` | The root navigation wrapper |
+| `PaginationContent` | The list container for pagination items |
+| `PaginationItem` | Individual list item wrapper |
+| `PaginationLink` | A clickable page number link |
+| `PaginationPrevious` | Previous page navigation with chevron icon |
+| `PaginationNext` | Next page navigation with chevron icon |
+| `PaginationEllipsis` | Interactive ellipsis button for truncated page ranges |
+
+### Helpers
+
+| Function | Signature | Description |
+|----------|-----------|-------------|
+| `generatePaginationRange` | `(currentPage: number, totalPages: number, siblingCount?: number) => (number \| "ellipsis")[]` | Computes the array of page numbers and ellipsis markers to render. Always includes first and last page, shows `siblingCount` pages on each side of the current page (default 1), and inserts `"ellipsis"` between non-contiguous ranges. |
+
+## Accessibility
+
+The Pagination component follows WAI-ARIA navigation patterns:
+
+- Uses `<nav>` element with `aria-label="pagination"` for landmark navigation
+- `aria-current="page"` is set on the active page link
+- Previous and Next links include descriptive `aria-label` attributes
+- Ellipsis button has `aria-label="Show more pages"` for screen readers
+- Supports keyboard navigation through focusable link and button elements
