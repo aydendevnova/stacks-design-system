@@ -110,8 +110,7 @@ const config: Config = {
         {
           title: 'Community',
           items: [
-            {label: 'Discord', href: 'https://discord.gg/stacks'},
-            {label: 'Twitter/X', href: 'https://twitter.com/staboratory'},
+            {label: 'Twitter/X', href: 'https://x.com/Stacks'},
             {label: 'Stacks Forum', href: 'https://forum.stacks.org'},
             {label: 'GitHub', href: 'https://github.com/stacks-network'},
           ],

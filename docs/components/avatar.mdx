@@ -1,0 +1,183 @@
+---
+sidebar_position: 2
+title: Avatar
+description: An image element with a fallback for representing the user.
+---
+
+import { Avatar, AvatarImage, AvatarFallback, AvatarGroup } from '@site/src/components/ui/avatar'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Avatar
+
+An image element with a fallback for representing the user.
+
+## Avatar
+
+<ComponentPreview>
+  <div className="flex flex-col gap-6">
+    <div className="flex items-center gap-6">
+      <Avatar size="xs">
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar size="xs">
+        <AvatarImage src="/img/placeholder-avatar.png" alt="User" />
+        <AvatarFallback>U</AvatarFallback>
+      </Avatar>
+    </div>
+    <div className="flex items-center gap-6">
+      <Avatar size="sm">
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar size="sm">
+        <AvatarImage src="/img/placeholder-avatar.png" alt="User" />
+        <AvatarFallback>U</AvatarFallback>
+      </Avatar>
+    </div>
+    <div className="flex items-center gap-6">
+      <Avatar size="md">
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar size="md">
+        <AvatarImage src="/img/placeholder-avatar.png" alt="User" />
+        <AvatarFallback>U</AvatarFallback>
+      </Avatar>
+    </div>
+    <div className="flex items-center gap-6">
+      <Avatar size="lg">
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar size="lg">
+        <AvatarImage src="/img/placeholder-avatar.png" alt="User" />
+        <AvatarFallback>U</AvatarFallback>
+      </Avatar>
+    </div>
+  </div>
+</ComponentPreview>
+
+## Stacked Avatars
+
+<ComponentPreview>
+  <div className="flex flex-col gap-6">
+    <AvatarGroup size="xs">
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+    </AvatarGroup>
+    <AvatarGroup size="sm">
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+    </AvatarGroup>
+    <AvatarGroup size="md">
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+    </AvatarGroup>
+    <AvatarGroup size="lg">
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <Avatar>
+        <AvatarImage src="/img/stx-logo.png" alt="STX" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+    </AvatarGroup>
+  </div>
+</ComponentPreview>
+
+```tsx
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+  AvatarGroup,
+} from "@/components/ui/avatar"
+
+{/* Single avatar */}
+<Avatar size="md">
+  <AvatarImage src="/img/stx-logo.png" alt="STX" />
+  <AvatarFallback>ST</AvatarFallback>
+</Avatar>
+
+{/* Stacked avatars */}
+<AvatarGroup size="md">
+  <Avatar>
+    <AvatarImage src="/img/stx-logo.png" alt="STX" />
+    <AvatarFallback>ST</AvatarFallback>
+  </Avatar>
+  <Avatar>
+    <AvatarImage src="/img/stx-logo.png" alt="STX" />
+    <AvatarFallback>ST</AvatarFallback>
+  </Avatar>
+  <Avatar>
+    <AvatarImage src="/img/stx-logo.png" alt="STX" />
+    <AvatarFallback>ST</AvatarFallback>
+  </Avatar>
+</AvatarGroup>
+```
+
+## Sizes
+
+| Size | Class | Dimensions |
+|------|-------|------------|
+| `xs` | `size-6` | 24×24px |
+| `sm` | `size-8` | 32×32px |
+| `md` | `size-12` | 48×48px |
+| `lg` | `size-20` | 80×80px |
+
+## API Reference
+
+### Avatar
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `"xs" \| "sm" \| "md" \| "lg"` | `"md"` | Controls the avatar dimensions |
+
+### AvatarGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `"xs" \| "sm" \| "md" \| "lg"` | `"md"` | Controls the size of all child avatars and their overlap spacing |
+
+## Accessibility
+
+- Uses Radix UI's Avatar primitive with proper image loading states
+- `AvatarFallback` renders when the image fails to load or while loading
+- Always provide an `alt` attribute on `AvatarImage` for screen readers
+- Fallback text should be initials or a meaningful abbreviation

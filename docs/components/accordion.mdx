@@ -1,0 +1,93 @@
+---
+sidebar_position: 1
+title: Accordion
+description: A vertically stacked set of interactive headings that each reveal an associated section of content.
+---
+
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@site/src/components/ui/accordion'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Accordion
+
+A vertically stacked set of interactive headings that each reveal an associated section of content.
+
+<ComponentPreview column>
+  <div className="w-full max-w-[500px]">
+    <Accordion type="multiple" defaultValue={["item-2", "item-3"]}>
+      <AccordionItem value="item-1">
+        <AccordionTrigger>Accordion Title</AccordionTrigger>
+        <AccordionContent>
+          Lorem ipsum dolor sit amet consectetur. Nibh eu ultricies dignissim urna eget.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>Accordion Title</AccordionTrigger>
+        <AccordionContent>
+          <div className="flex flex-col gap-3">
+            <div className="text-sm text-muted-foreground pl-2">Menu Item</div>
+            <div className="text-sm text-muted-foreground pl-2">Menu Item</div>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger>Accordion Title</AccordionTrigger>
+        <AccordionContent>
+          Lorem ipsum dolor sit amet consectetur. Nibh eu ultricies dignissim urna eget. Pretium urna suspendisse et cursus netus. Pretium montes tincidunt suscipit tempus ipsum nisl bibendum. Ac malesuada in tellus nulla urna.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  </div>
+</ComponentPreview>
+
+```tsx
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion"
+
+<Accordion type="multiple" defaultValue={["item-2", "item-3"]}>
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Accordion Title</AccordionTrigger>
+    <AccordionContent>
+      Lorem ipsum dolor sit amet consectetur.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>Accordion Title</AccordionTrigger>
+    <AccordionContent>
+      <div className="flex flex-col gap-3">
+        <div>Menu Item</div>
+        <div>Menu Item</div>
+      </div>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-3">
+    <AccordionTrigger>Accordion Title</AccordionTrigger>
+    <AccordionContent>
+      Lorem ipsum dolor sit amet consectetur. Nibh eu ultricies
+      dignissim urna eget.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `"single" \| "multiple"` | — | Whether one or multiple items can be opened at once |
+| `defaultValue` | `string \| string[]` | — | The value(s) of the item(s) to expand by default |
+| `collapsible` | `boolean` | `false` | When `type` is `"single"`, allows closing all items |
+| `value` | `string \| string[]` | — | Controlled expanded value(s) |
+| `onValueChange` | `function` | — | Callback when the expanded state changes |
+
+## Accessibility
+
+The Accordion component follows WAI-ARIA accordion patterns:
+
+- Uses appropriate ARIA roles (`region`, `heading`, `button`)
+- Supports keyboard navigation (Arrow keys to move between triggers, Enter/Space to toggle)
+- Includes proper `aria-expanded` and `aria-controls` attributes
+- Content regions are properly labeled by their triggers

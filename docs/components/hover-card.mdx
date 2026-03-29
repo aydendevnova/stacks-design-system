@@ -1,0 +1,116 @@
+---
+sidebar_position: 14
+title: Hover Card
+description: For sighted users to preview content available behind a link.
+---
+
+import { HoverCard, HoverCardTrigger, HoverCardContent } from '@site/src/components/ui/hover-card'
+import { Avatar, AvatarImage, AvatarFallback } from '@site/src/components/ui/avatar'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Hover Card
+
+For sighted users to preview content available behind a link.
+
+## Preview
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => {
+      const { CalendarDays } = require('lucide-react')
+      return (
+        <div className="flex flex-col items-start gap-2" style={{ minHeight: 160 }}>
+          <HoverCard open>
+            <HoverCardTrigger asChild>
+            <a href="#" className="text-xs font-semibold uppercase tracking-wide text-primary underline underline-offset-4">
+              Hover
+            </a>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-[300px] !opacity-100 !transform-none" sideOffset={8} align="start">
+              <div className="flex gap-3">
+                <div className="h-10 w-10 shrink-0 rounded-full bg-primary" />
+                <div className="space-y-1">
+                  <h4 className="text-sm font-semibold text-foreground">Title</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Lorem ipsum dolor sit amet consectetur.
+                  </p>
+                  <div className="flex items-center pt-1">
+                    <CalendarDays className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground">Link</span>
+                  </div>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
+        </div>
+      )
+    }}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "@/components/ui/hover-card"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { CalendarDays } from "lucide-react"
+
+<HoverCard>
+  <HoverCardTrigger asChild>
+    <a href="#" className="text-sm font-semibold text-primary underline underline-offset-4">
+      @stacks
+    </a>
+  </HoverCardTrigger>
+  <HoverCardContent className="w-80">
+    <div className="flex gap-4">
+      <Avatar size="sm">
+        <AvatarImage src="/img/stx-logo.png" alt="Stacks" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
+      <div className="space-y-1">
+        <h4 className="text-sm font-semibold">Title</h4>
+        <p className="text-sm text-muted-foreground">
+          Lorem ipsum dolor sit amet consectetur.
+        </p>
+        <div className="flex items-center pt-2">
+          <CalendarDays className="mr-2 h-4 w-4 text-muted-foreground" />
+          <span className="text-xs text-muted-foreground">Link</span>
+        </div>
+      </div>
+    </div>
+  </HoverCardContent>
+</HoverCard>
+```
+
+## API Reference
+
+### HoverCard
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `openDelay` | `number` | `700` | Duration from when the mouse enters the trigger until the hover card opens |
+| `closeDelay` | `number` | `300` | Duration from when the mouse leaves the trigger or content until the hover card closes |
+| `open` | `boolean` | — | Controlled open state |
+| `onOpenChange` | `(open: boolean) => void` | — | Callback when the open state changes |
+
+### HoverCardTrigger
+
+Wraps the element that triggers the hover card. Use `asChild` to merge props onto a custom element.
+
+### HoverCardContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `side` | `"top" \| "right" \| "bottom" \| "left"` | `"bottom"` | Preferred side of the trigger to render |
+| `sideOffset` | `number` | `4` | Distance in pixels from the trigger |
+| `align` | `"start" \| "center" \| "end"` | `"center"` | Preferred alignment against the trigger |
+
+## Accessibility
+
+- The hover card is intended for sighted users only; content is hidden from screen readers
+- Not suitable for essential information — use tooltips or popovers for accessible alternatives
+- Opens on hover with configurable delays
+- Closes when the pointer leaves the trigger or content area

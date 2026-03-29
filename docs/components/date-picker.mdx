@@ -1,0 +1,368 @@
+---
+sidebar_position: 6
+title: Date Picker
+description: A date picker component with range and presets.
+---
+
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Date Picker
+
+A date picker component with range and presets.
+
+## Date of Birth
+
+A simple date picker with a label and popover calendar.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => {
+      const React = require('react')
+      const { format } = require('date-fns')
+      const { CalendarIcon } = require('lucide-react')
+      const { cn } = require('@site/src/lib/utils')
+      const { Button } = require('@site/src/components/ui/button')
+      const { Calendar } = require('@site/src/components/ui/calendar')
+      const { Popover, PopoverContent, PopoverTrigger } = require('@site/src/components/ui/popover')
+      const [date, setDate] = React.useState(undefined)
+      return (
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium text-foreground">Date of birth</label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-[280px] justify-start text-left font-normal",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date ? format(date, "PPP") : <span>Select an option</span>}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                captionLayout="dropdown"
+                fromYear={2000}
+                toYear={2026}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+      )
+    }}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import { format } from "date-fns"
+import { CalendarIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+
+function DateOfBirthPicker() {
+  const [date, setDate] = React.useState<Date | undefined>(undefined)
+
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="text-sm font-medium text-foreground">
+        Date of birth
+      </label>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            className={cn(
+              "w-[280px] justify-start text-left font-normal",
+              !date && "text-muted-foreground"
+            )}
+          >
+            <CalendarIcon className="mr-2 h-4 w-4" />
+            {date ? format(date, "PPP") : <span>Select an option</span>}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            captionLayout="dropdown"
+            fromYear={2000}
+            toYear={2026}
+          />
+        </PopoverContent>
+      </Popover>
+    </div>
+  )
+}
+```
+
+## Basic Calendar
+
+A standalone calendar component for inline date selection.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => {
+      const React = require('react')
+      const { Calendar } = require('@site/src/components/ui/calendar')
+      const [date, setDate] = React.useState(new Date())
+      return (
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          className="rounded-lg border"
+        />
+      )
+    }}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import { Calendar } from "@/components/ui/calendar"
+
+function BasicCalendar() {
+  const [date, setDate] = React.useState<Date | undefined>(new Date())
+
+  return (
+    <Calendar
+      mode="single"
+      selected={date}
+      onSelect={setDate}
+      className="rounded-lg border"
+    />
+  )
+}
+```
+
+## With Month & Year Dropdowns
+
+Use `captionLayout="dropdown"` for month and year selector dropdowns, useful for navigating to dates far from the current month.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => {
+      const React = require('react')
+      const { Calendar } = require('@site/src/components/ui/calendar')
+      const [date, setDate] = React.useState(new Date(2025, 11, 15))
+      return (
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          captionLayout="dropdown"
+          fromYear={2014}
+          toYear={2026}
+          className="rounded-lg border"
+        />
+      )
+    }}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+<Calendar
+  mode="single"
+  selected={date}
+  onSelect={setDate}
+  captionLayout="dropdown"
+  fromYear={2014}
+  toYear={2026}
+  className="rounded-lg border"
+/>
+```
+
+## Date Range
+
+Use `mode="range"` to allow selecting a date range with start and end dates.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => {
+      const React = require('react')
+      const { addDays } = require('date-fns')
+      const { Calendar } = require('@site/src/components/ui/calendar')
+      const [range, setRange] = React.useState({
+        from: new Date(2025, 11, 8),
+        to: addDays(new Date(2025, 11, 8), 7),
+      })
+      return (
+        <Calendar
+          mode="range"
+          defaultMonth={range?.from}
+          selected={range}
+          onSelect={setRange}
+          numberOfMonths={2}
+          className="rounded-lg border"
+        />
+      )
+    }}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import { addDays } from "date-fns"
+import { type DateRange } from "react-day-picker"
+
+function DateRangePicker() {
+  const [range, setRange] = React.useState<DateRange | undefined>({
+    from: new Date(2025, 11, 8),
+    to: addDays(new Date(2025, 11, 8), 7),
+  })
+
+  return (
+    <Calendar
+      mode="range"
+      defaultMonth={range?.from}
+      selected={range}
+      onSelect={setRange}
+      numberOfMonths={2}
+      className="rounded-lg border"
+    />
+  )
+}
+```
+
+## With Presets
+
+Combine the date picker with preset buttons for quick date selection.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => {
+      const React = require('react')
+      const { addDays, format } = require('date-fns')
+      const { CalendarIcon } = require('lucide-react')
+      const { cn } = require('@site/src/lib/utils')
+      const { Button } = require('@site/src/components/ui/button')
+      const { Calendar } = require('@site/src/components/ui/calendar')
+      const { Popover, PopoverContent, PopoverTrigger } = require('@site/src/components/ui/popover')
+      const { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } = require('@site/src/components/ui/select')
+      const [date, setDate] = React.useState(undefined)
+      return (
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-[280px] justify-start text-left font-normal",
+                !date && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {date ? format(date, "PPP") : <span>Pick a date</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="flex w-auto flex-col gap-2 p-2" align="start">
+            <Select
+              onValueChange={(value) => setDate(addDays(new Date(), parseInt(value)))}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select a preset" />
+              </SelectTrigger>
+              <SelectContent position="popper">
+                <SelectItem value="0">Today</SelectItem>
+                <SelectItem value="1">Tomorrow</SelectItem>
+                <SelectItem value="3">In 3 days</SelectItem>
+                <SelectItem value="7">In a week</SelectItem>
+              </SelectContent>
+            </Select>
+            <div className="rounded-md border">
+              <Calendar mode="single" selected={date} onSelect={setDate} />
+            </div>
+          </PopoverContent>
+        </Popover>
+      )
+    }}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import { addDays, format } from "date-fns"
+import { CalendarIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+
+function DatePickerWithPresets() {
+  const [date, setDate] = React.useState<Date | undefined>(undefined)
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          className={cn(
+            "w-[280px] justify-start text-left font-normal",
+            !date && "text-muted-foreground"
+          )}
+        >
+          <CalendarIcon className="mr-2 h-4 w-4" />
+          {date ? format(date, "PPP") : <span>Pick a date</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="flex w-auto flex-col gap-2 p-2" align="start">
+        <Select onValueChange={(v) => setDate(addDays(new Date(), parseInt(v)))}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select a preset" />
+          </SelectTrigger>
+          <SelectContent position="popper">
+            <SelectItem value="0">Today</SelectItem>
+            <SelectItem value="1">Tomorrow</SelectItem>
+            <SelectItem value="3">In 3 days</SelectItem>
+            <SelectItem value="7">In a week</SelectItem>
+          </SelectContent>
+        </Select>
+        <div className="rounded-md border">
+          <Calendar mode="single" selected={date} onSelect={setDate} />
+        </div>
+      </PopoverContent>
+    </Popover>
+  )
+}
+```
+
+## API Reference
+
+### Calendar
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `mode` | `"single" \| "range" \| "multiple"` | — | Selection mode |
+| `selected` | `Date \| DateRange \| Date[]` | — | Currently selected date(s) |
+| `onSelect` | `function` | — | Callback when date selection changes |
+| `captionLayout` | `"label" \| "dropdown"` | `"label"` | How the month/year caption is rendered |
+| `fromYear` | `number` | — | Minimum selectable year (with dropdown layout) |
+| `toYear` | `number` | — | Maximum selectable year (with dropdown layout) |
+| `numberOfMonths` | `number` | `1` | Number of months to display side by side |
+| `showOutsideDays` | `boolean` | `true` | Show days from adjacent months |
+| `disabled` | `Date[] \| function` | — | Disabled dates or matcher function |
+
+### DatePicker
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | — | Label text displayed above the picker |
+| `placeholder` | `string` | `"Pick a date"` | Placeholder text when no date is selected |
+| `date` | `Date` | — | Controlled selected date |
+| `onDateChange` | `(date: Date \| undefined) => void` | — | Callback when date changes |
+
+## Accessibility
+
+The Date Picker component is built with accessibility in mind:
+
+- Calendar navigation is fully keyboard accessible using arrow keys
+- Month and year dropdowns support keyboard interaction
+- Selected dates are announced to screen readers via `aria-selected`
+- Focus is managed automatically when navigating between months
+- The popover trigger button has an accessible label when no date is selected

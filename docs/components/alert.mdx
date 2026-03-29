@@ -1,0 +1,91 @@
+---
+sidebar_position: 1
+title: Alert
+description: Displays a callout for important information, warnings, or status messages.
+---
+
+import { Alert, AlertTitle, AlertDescription } from '@site/src/components/ui/alert'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { CodeXml } from 'lucide-react'
+
+# Alert
+
+Displays a callout for important information, warnings, or status messages.
+
+<ComponentPreview column>
+  <div className="w-full max-w-[450px] flex flex-col gap-4">
+    <Alert>
+      <CodeXml className="h-4 w-4" />
+      <AlertTitle>Default</AlertTitle>
+      <AlertDescription>
+        Lorem ipsum dolor sit amet consectetur.
+      </AlertDescription>
+    </Alert>
+    <Alert variant="destructive">
+      <CodeXml className="h-4 w-4" />
+      <AlertTitle className="text-destructive">Destructive</AlertTitle>
+      <AlertDescription>
+        Lorem ipsum dolor sit amet consectetur.
+      </AlertDescription>
+    </Alert>
+    <Alert variant="secondary">
+      <CodeXml className="h-4 w-4" />
+      <AlertTitle>Secondary</AlertTitle>
+      <AlertDescription>
+        Lorem ipsum dolor sit amet consectetur.
+      </AlertDescription>
+    </Alert>
+  </div>
+</ComponentPreview>
+
+```tsx
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
+import { CodeXml } from "lucide-react"
+
+<Alert>
+  <CodeXml className="h-4 w-4" />
+  <AlertTitle>Default</AlertTitle>
+  <AlertDescription>
+    Lorem ipsum dolor sit amet consectetur.
+  </AlertDescription>
+</Alert>
+
+<Alert variant="destructive">
+  <CodeXml className="h-4 w-4" />
+  <AlertTitle className="text-destructive">Destructive</AlertTitle>
+  <AlertDescription>
+    Lorem ipsum dolor sit amet consectetur.
+  </AlertDescription>
+</Alert>
+
+<Alert variant="secondary">
+  <CodeXml className="h-4 w-4" />
+  <AlertTitle>Secondary</AlertTitle>
+  <AlertDescription>
+    Lorem ipsum dolor sit amet consectetur.
+  </AlertDescription>
+</Alert>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "destructive" \| "secondary"` | `"default"` | The visual style variant of the alert |
+
+### AlertTitle
+
+Renders a styled `<h5>` for the alert heading. Accepts standard heading attributes.
+
+### AlertDescription
+
+Renders a styled `<div>` for the alert body text. Accepts standard div attributes.
+
+## Accessibility
+
+The Alert component follows WAI-ARIA alert patterns:
+
+- Uses `role="alert"` for screen reader announcements
+- Icon is decorative and hidden from assistive technology when paired with text
+- Color is not the sole indicator of variant — borders and text reinforce meaning
+- Supports all standard HTML div attributes for custom ARIA properties

@@ -1,0 +1,142 @@
+---
+sidebar_position: 5
+title: Context Menu
+description: Displays a menu to the user — such as a set of actions or functions — triggered by a button.
+---
+
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { ContextMenuDemo } from '@site/src/components/demos/ContextMenuDemo'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Context Menu
+
+Displays a menu to the user — such as a set of actions or functions — triggered by a right-click.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => <ContextMenuDemo />}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import {
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuCheckboxItem,
+  ContextMenuRadioItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuRadioGroup,
+} from "@/components/ui/context-menu"
+
+<ContextMenu>
+  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+  <ContextMenuContent className="w-56">
+    <ContextMenuItem>Back</ContextMenuItem>
+    <ContextMenuItem disabled>Forward</ContextMenuItem>
+    <ContextMenuItem>Reload</ContextMenuItem>
+    <ContextMenuSub>
+      <ContextMenuSubTrigger>More Tools</ContextMenuSubTrigger>
+      <ContextMenuSubContent className="w-48">
+        <ContextMenuItem>Save Page As…</ContextMenuItem>
+        <ContextMenuItem>Create Shortcut…</ContextMenuItem>
+        <ContextMenuItem>Name Window…</ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem>Developer Tools</ContextMenuItem>
+      </ContextMenuSubContent>
+    </ContextMenuSub>
+    <ContextMenuSeparator />
+    <ContextMenuCheckboxItem checked>
+      Show Bookmark Bar
+    </ContextMenuCheckboxItem>
+    <ContextMenuCheckboxItem>
+      Show Full URLs
+    </ContextMenuCheckboxItem>
+    <ContextMenuSeparator />
+    <ContextMenuLabel>People</ContextMenuLabel>
+    <ContextMenuRadioGroup value="amy">
+      <ContextMenuRadioItem value="amy">Amy Smith</ContextMenuRadioItem>
+      <ContextMenuRadioItem value="brian">Brian Gary</ContextMenuRadioItem>
+      <ContextMenuRadioItem value="catherine">Catherine Dell</ContextMenuRadioItem>
+    </ContextMenuRadioGroup>
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `modal` | `boolean` | `true` | Whether the context menu is modal (blocks outside interaction) |
+| `onOpenChange` | `(open: boolean) => void` | — | Callback when open state changes |
+
+### ContextMenuContent
+
+The popup container for context menu items. Renders in a portal.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `alignOffset` | `number` | `0` | Offset from the alignment edge |
+| `avoidCollisions` | `boolean` | `true` | Whether to flip side when hitting viewport boundary |
+
+### ContextMenuItem
+
+An interactive item within the menu.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `disabled` | `boolean` | `false` | Prevents interaction and applies dimmed styling |
+| `inset` | `boolean` | `false` | Adds left padding to align with items that have indicators |
+| `onSelect` | `(event: Event) => void` | — | Callback when the item is selected |
+
+### ContextMenuCheckboxItem
+
+A menu item that can be toggled on or off with a checkmark indicator.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | — | Controlled checked state |
+| `onCheckedChange` | `(checked: boolean) => void` | — | Callback when checked state changes |
+
+### ContextMenuRadioGroup / ContextMenuRadioItem
+
+A group of items where only one can be selected at a time, indicated by a filled circle.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | The value of the selected radio item |
+| `onValueChange` | `(value: string) => void` | — | Callback when the selected value changes |
+
+### ContextMenuSub / ContextMenuSubTrigger / ContextMenuSubContent
+
+Renders a nested submenu with a trigger item that shows a chevron indicator.
+
+### ContextMenuLabel
+
+A non-interactive label for grouping menu items. Renders in uppercase small text.
+
+### ContextMenuSeparator
+
+A horizontal divider between groups of items.
+
+### ContextMenuShortcut
+
+A styled span for displaying keyboard shortcut hints alongside a menu item.
+
+## Accessibility
+
+The Context Menu component follows WAI-ARIA menu patterns:
+
+- Opens on right-click (contextmenu event) of the trigger area
+- Supports keyboard navigation (Arrow keys to move between items, Enter/Space to select)
+- Escape key closes the menu
+- Submenus open with ArrowRight and close with ArrowLeft
+- Focus is trapped within the menu while open
+- Disabled items are skipped during keyboard navigation
+- Checkbox and radio items announce their state to screen readers

@@ -1,0 +1,95 @@
+---
+title: Drawer
+description: A panel that slides in from the edge of the screen to display additional content or actions without navigating away from the current page.
+---
+
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { DrawerDemo } from '@site/src/components/demos/DrawerDemo'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Drawer
+
+A panel that slides in from the edge of the screen to display additional content or actions without navigating away from the current page.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => <DrawerDemo />}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import { Button } from "@/components/ui/button"
+
+<Drawer>
+  <DrawerTrigger asChild>
+    <Button variant="outline">Open Drawer</Button>
+  </DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader className="text-center">
+      <DrawerTitle>Move Goal</DrawerTitle>
+      <DrawerDescription>Set your daily move goal</DrawerDescription>
+    </DrawerHeader>
+    <div className="flex items-center justify-center gap-6 py-4">
+      <Button variant="outline" size="icon" className="rounded-full">−</Button>
+      <span className="text-4xl font-bold tabular-nums">1,124</span>
+      <Button variant="outline" size="icon" className="rounded-full">+</Button>
+    </div>
+    <DrawerFooter className="flex-row justify-center">
+      <DrawerClose asChild>
+        <Button variant="ghost">Cancel</Button>
+      </DrawerClose>
+      <Button>Submit</Button>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controlled open state of the drawer |
+| `onOpenChange` | `(open: boolean) => void` | — | Callback when open state changes |
+| `shouldScaleBackground` | `boolean` | `true` | Whether the background scales down when the drawer is open |
+| `direction` | `"top" \| "bottom" \| "left" \| "right"` | `"bottom"` | The direction from which the drawer slides in |
+
+### DrawerContent
+
+The container for drawer content. Renders at the bottom of the viewport with a drag handle.
+
+### DrawerHeader
+
+Layout wrapper for `DrawerTitle` and `DrawerDescription`.
+
+### DrawerFooter
+
+Layout wrapper for action buttons at the bottom of the drawer.
+
+### DrawerTitle
+
+The accessible title for the drawer.
+
+### DrawerDescription
+
+An optional accessible description for the drawer content.
+
+## Accessibility
+
+The Drawer component follows WAI-ARIA dialog patterns:
+
+- Focus is trapped within the drawer while open
+- Escape key closes the drawer
+- Supports swipe-to-dismiss gesture on touch devices
+- Content underneath is made inert (not interactive)
+- Focus returns to trigger when closed
+- Includes a visible drag handle for affordance

@@ -1,0 +1,44 @@
+---
+sidebar_position: 2
+title: Badge
+description: Displays a badge or a component that looks like a badge.
+---
+
+import { Badge } from '@site/src/components/ui/badge'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Badge
+
+Displays a badge or a component that looks like a badge.
+
+<ComponentPreview column>
+  <div className="flex flex-col items-start gap-3">
+    <Badge>Default</Badge>
+    <Badge variant="secondary">Secondary</Badge>
+    <Badge variant="outline">Outline</Badge>
+    <Badge variant="destructive">Destructive</Badge>
+    <Badge variant="success">Success</Badge>
+  </div>
+</ComponentPreview>
+
+```tsx
+import { Badge } from "@/components/ui/badge"
+
+<Badge>Default</Badge>
+<Badge variant="secondary">Secondary</Badge>
+<Badge variant="outline">Outline</Badge>
+<Badge variant="destructive">Destructive</Badge>
+<Badge variant="success">Success</Badge>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "secondary" \| "outline" \| "destructive" \| "success"` | `"default"` | The visual style variant of the badge |
+
+## Accessibility
+
+- Badge is presentational by default; add `role="status"` when conveying dynamic state
+- Text content provides meaning — color is not the sole differentiator
+- Supports all standard HTML div attributes for custom ARIA properties

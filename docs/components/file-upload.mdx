@@ -1,0 +1,58 @@
+---
+sidebar_position: 7
+title: File Upload
+description: An interface that allows users to select and upload files from their device, with visual feedback on upload status and file validation.
+---
+
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# File Upload
+
+An interface that allows users to select and upload files from their device, with visual feedback on upload status and file validation.
+
+<ComponentPreview column>
+  <BrowserOnly>
+    {() => {
+      const { FileUploadDemo } = require('@site/src/components/demos/FileUploadDemo')
+      return <FileUploadDemo />
+    }}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import { FileUpload } from "@/components/ui/file-upload"
+
+function FileUploadExample() {
+  return (
+    <FileUpload
+      label="File Uploader"
+      maxFiles={2}
+      maxSizeMB={5}
+      accept="image/*"
+      onChange={(files) => console.log(files)}
+    />
+  )
+}
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | `"File Uploader"` | Label text displayed above the drop zone |
+| `maxFiles` | `number` | `2` | Maximum number of files allowed |
+| `maxSizeMB` | `number` | `5` | Maximum file size in megabytes |
+| `accept` | `string` | — | Accepted file types (e.g. `"image/*"`, `".pdf,.doc"`) |
+| `onChange` | `(files: File[]) => void` | — | Callback when files are added or removed |
+| `className` | `string` | — | Additional CSS classes |
+
+## Accessibility
+
+The File Upload component is built with accessibility in mind:
+
+- The drop zone is keyboard accessible via `Enter` and `Space` keys
+- Each action button (edit, download, delete) has a descriptive `aria-label`
+- The drop zone has an `aria-label` describing file constraints
+- Uses `role="button"` with `tabIndex={0}` for the drop zone
+- Visual drag state feedback uses border and background changes, not color alone

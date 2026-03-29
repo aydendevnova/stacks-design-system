@@ -1,0 +1,96 @@
+---
+sidebar_position: 5
+title: Content Switcher
+description: Toggle between two or more different views or content sections within the same context, typically presented as segmented buttons or tabs.
+---
+
+import { ContentSwitcher, ContentSwitcherOption } from '@site/src/components/ui/content-switcher'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Content Switcher
+
+Toggle between two or more different views or content sections within the same context, typically presented as segmented buttons or tabs.
+
+## Preview
+
+<ComponentPreview column>
+  <div className="flex flex-col items-start gap-6">
+    <ContentSwitcher type="single" defaultValue="">
+      <ContentSwitcherOption value="1">Option 1</ContentSwitcherOption>
+      <ContentSwitcherOption value="2">Option 2</ContentSwitcherOption>
+      <ContentSwitcherOption value="3">Option 3</ContentSwitcherOption>
+      <ContentSwitcherOption value="4">Option 4</ContentSwitcherOption>
+    </ContentSwitcher>
+    <ContentSwitcher type="single" defaultValue="1">
+      <ContentSwitcherOption value="1">Option 1</ContentSwitcherOption>
+      <ContentSwitcherOption value="2">Option 2</ContentSwitcherOption>
+      <ContentSwitcherOption value="3">Option 3</ContentSwitcherOption>
+      <ContentSwitcherOption value="4">Option 4</ContentSwitcherOption>
+    </ContentSwitcher>
+    <ContentSwitcher type="single" defaultValue="2">
+      <ContentSwitcherOption value="1">Option 1</ContentSwitcherOption>
+      <ContentSwitcherOption value="2">Option 2</ContentSwitcherOption>
+      <ContentSwitcherOption value="3">Option 3</ContentSwitcherOption>
+      <ContentSwitcherOption value="4">Option 4</ContentSwitcherOption>
+    </ContentSwitcher>
+    <ContentSwitcher type="single" defaultValue="3">
+      <ContentSwitcherOption value="1">Option 1</ContentSwitcherOption>
+      <ContentSwitcherOption value="2">Option 2</ContentSwitcherOption>
+      <ContentSwitcherOption value="3">Option 3</ContentSwitcherOption>
+      <ContentSwitcherOption value="4">Option 4</ContentSwitcherOption>
+    </ContentSwitcher>
+    <ContentSwitcher type="single" defaultValue="4">
+      <ContentSwitcherOption value="1">Option 1</ContentSwitcherOption>
+      <ContentSwitcherOption value="2">Option 2</ContentSwitcherOption>
+      <ContentSwitcherOption value="3">Option 3</ContentSwitcherOption>
+      <ContentSwitcherOption value="4">Option 4</ContentSwitcherOption>
+    </ContentSwitcher>
+  </div>
+</ComponentPreview>
+
+### Single Option States
+
+<ComponentPreview column>
+  <div className="flex flex-col items-start gap-3">
+    <ContentSwitcher type="single" defaultValue="">
+      <ContentSwitcherOption value="1">Option</ContentSwitcherOption>
+    </ContentSwitcher>
+    <ContentSwitcher type="single" defaultValue="1">
+      <ContentSwitcherOption value="1">Option</ContentSwitcherOption>
+    </ContentSwitcher>
+  </div>
+</ComponentPreview>
+
+```tsx
+import { ContentSwitcher, ContentSwitcherOption } from "@/components/ui/content-switcher"
+
+<ContentSwitcher type="single" defaultValue="1">
+  <ContentSwitcherOption value="1">Option 1</ContentSwitcherOption>
+  <ContentSwitcherOption value="2">Option 2</ContentSwitcherOption>
+  <ContentSwitcherOption value="3">Option 3</ContentSwitcherOption>
+  <ContentSwitcherOption value="4">Option 4</ContentSwitcherOption>
+</ContentSwitcher>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `"single" \| "multiple"` | — | Whether one or multiple options can be active at once |
+| `defaultValue` | `string` | — | The value of the option to activate by default |
+| `value` | `string` | — | Controlled active value |
+| `onValueChange` | `function` | — | Callback when the active option changes |
+
+### ContentSwitcherOption
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | A unique value for the option |
+| `disabled` | `boolean` | `false` | Whether the option is disabled |
+
+## Accessibility
+
+- Uses `role="group"` with proper toggle semantics via Radix ToggleGroup
+- Supports keyboard navigation (Arrow keys to move between options, Enter/Space to select)
+- Includes `aria-pressed` state for each option
+- Focus management follows WAI-ARIA roving tabindex pattern

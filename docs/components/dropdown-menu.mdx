@@ -1,0 +1,137 @@
+---
+sidebar_position: 6
+title: Dropdown Menu
+description: Displays a menu to the user — such as a set of actions or functions — triggered by a button.
+---
+
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { DropdownMenuDemo } from '@site/src/components/demos/DropdownMenuDemo'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Dropdown Menu
+
+Displays a menu to the user — such as a set of actions or functions — triggered by a button.
+
+<ComponentPreview>
+  <BrowserOnly>
+    {() => <DropdownMenuDemo />}
+  </BrowserOnly>
+</ComponentPreview>
+
+```tsx
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
+
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <button>Open Menu</button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent className="w-56">
+    <DropdownMenuLabel>Section Title</DropdownMenuLabel>
+    <DropdownMenuItem>
+      <span>Item</span>
+      <div className="ml-auto flex flex-col items-end">
+        <span className="font-semibold">$0.01</span>
+        <span className="text-xs text-success">24.9%</span>
+      </div>
+    </DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>
+      <span>Item</span>
+      <div className="ml-auto flex flex-col items-end">
+        <span className="font-semibold">$0.01</span>
+        <span className="text-xs text-success">24.9%</span>
+      </div>
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `modal` | `boolean` | `true` | Whether the dropdown menu is modal (blocks outside interaction) |
+| `open` | `boolean` | — | Controlled open state |
+| `defaultOpen` | `boolean` | — | Uncontrolled default open state |
+| `onOpenChange` | `(open: boolean) => void` | — | Callback when open state changes |
+
+### DropdownMenuTrigger
+
+The button that opens the dropdown menu.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `asChild` | `boolean` | `false` | Merge props onto child element instead of rendering a default button |
+
+### DropdownMenuContent
+
+The popup container for dropdown menu items. Renders in a portal.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `sideOffset` | `number` | `4` | Distance from the trigger element |
+| `align` | `"start" \| "center" \| "end"` | `"center"` | Alignment relative to the trigger |
+| `avoidCollisions` | `boolean` | `true` | Whether to flip side when hitting viewport boundary |
+
+### DropdownMenuItem
+
+An interactive item within the menu.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `disabled` | `boolean` | `false` | Prevents interaction and applies dimmed styling |
+| `inset` | `boolean` | `false` | Adds left padding to align with items that have indicators |
+| `onSelect` | `(event: Event) => void` | — | Callback when the item is selected |
+
+### DropdownMenuCheckboxItem
+
+A menu item that can be toggled on or off with a checkmark indicator.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | — | Controlled checked state |
+| `onCheckedChange` | `(checked: boolean) => void` | — | Callback when checked state changes |
+
+### DropdownMenuRadioGroup / DropdownMenuRadioItem
+
+A group of items where only one can be selected at a time, indicated by a filled circle.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | The value of the selected radio item |
+| `onValueChange` | `(value: string) => void` | — | Callback when the selected value changes |
+
+### DropdownMenuSub / DropdownMenuSubTrigger / DropdownMenuSubContent
+
+Renders a nested submenu with a trigger item that shows a chevron indicator.
+
+### DropdownMenuLabel
+
+A non-interactive label for grouping menu items. Renders in uppercase small text.
+
+### DropdownMenuSeparator
+
+A horizontal divider between groups of items.
+
+### DropdownMenuShortcut
+
+A styled span for displaying keyboard shortcut hints alongside a menu item.
+
+## Accessibility
+
+The Dropdown Menu component follows WAI-ARIA menu patterns:
+
+- Opens on click of the trigger button
+- Supports keyboard navigation (Arrow keys to move between items, Enter/Space to select)
+- Escape key closes the menu
+- Submenus open with ArrowRight and close with ArrowLeft
+- Focus is trapped within the menu while open
+- Disabled items are skipped during keyboard navigation
+- Checkbox and radio items announce their state to screen readers

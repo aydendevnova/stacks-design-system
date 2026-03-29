@@ -1,0 +1,102 @@
+---
+sidebar_position: 2
+title: Alert Dialog
+description: A modal dialog that interrupts the user with important content and expects a response.
+---
+
+import { Button } from '@site/src/components/ui/button'
+import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel } from '@site/src/components/ui/alert-dialog'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+# Alert Dialog
+
+A modal dialog that interrupts the user with important content and expects a response.
+
+<ComponentPreview>
+  <div className="w-full max-w-[450px] rounded-lg border border-border bg-card p-6">
+    <div className="flex flex-col space-y-2">
+      <h4 className="text-lg font-semibold text-foreground">Are you sure absolutely sure?</h4>
+      <p className="text-sm text-muted-foreground">
+        This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+      </p>
+    </div>
+    <div className="mt-6 flex justify-end gap-3">
+      <Button variant="ghost" className="uppercase text-xs tracking-wider font-bold">Button</Button>
+      <Button rounded="full" className="uppercase text-xs tracking-wider font-semibold px-6">Continue</Button>
+    </div>
+  </div>
+</ComponentPreview>
+
+```tsx
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
+
+<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button variant="outline">Show Dialog</Button>
+  </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Are you sure absolutely sure?</AlertDialogTitle>
+      <AlertDialogDescription>
+        This action cannot be undone. This will permanently delete your
+        account and remove your data from our servers.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction>Continue</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controlled open state of the dialog |
+| `onOpenChange` | `(open: boolean) => void` | — | Callback when open state changes |
+| `defaultOpen` | `boolean` | `false` | The open state when initially rendered |
+
+### AlertDialogContent
+
+The container for alert dialog content. Renders in a portal with an overlay.
+
+### AlertDialogHeader
+
+Layout wrapper for `AlertDialogTitle` and `AlertDialogDescription`.
+
+### AlertDialogFooter
+
+Layout wrapper for action buttons, aligned to the right on larger screens.
+
+### AlertDialogAction
+
+A button that confirms the action and closes the dialog. Styled as a primary button by default.
+
+### AlertDialogCancel
+
+A button that cancels and closes the dialog. Styled as an outline button by default.
+
+## Accessibility
+
+The Alert Dialog component follows WAI-ARIA alertdialog patterns:
+
+- Uses `role="alertdialog"` for screen reader announcements
+- Focus is trapped within the dialog while open
+- Escape key closes the dialog
+- Content underneath is made inert (not interactive)
+- Focus returns to trigger when closed
+- Unlike Dialog, clicking outside does **not** close an Alert Dialog — the user must explicitly choose an action

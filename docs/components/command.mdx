@@ -1,0 +1,107 @@
+---
+sidebar_position: 4
+title: Command
+description: Fast, composable, unstyled command menu for React.
+---
+
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandSeparator } from '@site/src/components/ui/command'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+
+# Command
+
+Fast, composable, unstyled command menu for React.
+
+<ComponentPreview>
+  <Command className="w-full max-w-[400px] rounded-lg border border-border shadow-sm">
+    <CommandInput placeholder="Search categories" />
+    <CommandList>
+      <CommandEmpty>No results found.</CommandEmpty>
+      <CommandGroup heading="Section Title">
+        <CommandItem className="flex items-center justify-between">
+          <span className="text-sm">Item</span>
+          <div className="flex flex-col items-end">
+            <span className="text-sm font-medium">$0.01</span>
+            <span className="text-xs text-green-600">24.9%</span>
+          </div>
+        </CommandItem>
+        <CommandItem className="flex items-center justify-between">
+          <span className="text-sm">Item</span>
+          <div className="flex flex-col items-end">
+            <span className="text-sm font-medium">$0.01</span>
+            <span className="text-xs text-green-600">24.9%</span>
+          </div>
+        </CommandItem>
+      </CommandGroup>
+    </CommandList>
+  </Command>
+</ComponentPreview>
+
+```tsx
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command"
+
+<Command className="rounded-lg border shadow-sm">
+  <CommandInput placeholder="Search categories" />
+  <CommandList>
+    <CommandEmpty>No results found.</CommandEmpty>
+    <CommandGroup heading="Section Title">
+      <CommandItem className="flex items-center justify-between">
+        <span>Item</span>
+        <div className="flex flex-col items-end">
+          <span className="font-medium">$0.01</span>
+          <span className="text-xs text-green-600">24.9%</span>
+        </div>
+      </CommandItem>
+    </CommandGroup>
+  </CommandList>
+</Command>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | — | Accessible label for the command menu |
+| `shouldFilter` | `boolean` | `true` | Whether to automatically filter items based on search |
+| `filter` | `function` | — | Custom filter function `(value, search) => number` |
+| `value` | `string` | — | Controlled selected value |
+| `onValueChange` | `function` | — | Callback when the selected value changes |
+
+### CommandInput
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `placeholder` | `string` | — | Placeholder text for the search input |
+| `value` | `string` | — | Controlled input value |
+| `onValueChange` | `function` | — | Callback when the input value changes |
+
+### CommandGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `heading` | `string` | — | Group heading displayed above the items |
+| `forceMount` | `boolean` | `false` | Force render even when no results match |
+
+### CommandItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | Unique value for filtering and selection |
+| `onSelect` | `function` | — | Callback when the item is selected |
+| `disabled` | `boolean` | `false` | Whether the item is disabled |
+
+## Accessibility
+
+The Command component follows WAI-ARIA combobox and listbox patterns:
+
+- Uses appropriate ARIA roles (`combobox`, `listbox`, `option`)
+- Supports keyboard navigation (Arrow keys to move between items, Enter to select)
+- Search input is properly labeled and announces results to screen readers
+- Groups use `role="group"` with accessible headings
+- Disabled items are properly communicated to assistive technology

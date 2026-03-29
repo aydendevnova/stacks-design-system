@@ -1,0 +1,71 @@
+---
+sidebar_position: 15
+title: Error Dialogue
+description: A popup that alerts the user when an error has occurred.
+---
+
+import { Button } from '@site/src/components/ui/button'
+import { ComponentPreview } from '@site/src/components/ComponentPreview'
+import { AlertCircle } from 'lucide-react'
+
+# Error Dialogue
+
+A popup that alerts the user when an error has occurred.
+
+<ComponentPreview>
+  <div className="w-full max-w-[450px] rounded-lg border border-border bg-card p-6">
+    <div className="flex flex-col items-start gap-4">
+      <AlertCircle className="h-10 w-10 text-primary" strokeWidth={1.5} />
+      <div className="flex flex-col gap-1.5">
+        <h4 className="text-base font-bold text-foreground">Something Went Wrong</h4>
+        <p className="text-sm text-muted-foreground">
+          We hit a snag while processing your request. Please try again.
+        </p>
+      </div>
+      <Button rounded="full" size="sm" className="uppercase text-xs tracking-wider font-bold px-6">
+        Dismiss
+      </Button>
+    </div>
+  </div>
+</ComponentPreview>
+
+```tsx
+import { Button } from "@/components/ui/button"
+import { AlertCircle } from "lucide-react"
+
+<div className="w-full max-w-[450px] rounded-lg border border-border bg-card p-6">
+  <div className="flex flex-col items-start gap-4">
+    <AlertCircle className="h-10 w-10 text-primary" strokeWidth={1.5} />
+    <div className="flex flex-col gap-1.5">
+      <h4 className="text-base font-bold text-foreground">Something Went Wrong</h4>
+      <p className="text-sm text-muted-foreground">
+        We hit a snag while processing your request. Please try again.
+      </p>
+    </div>
+    <Button rounded="full" size="sm" className="uppercase text-xs tracking-wider font-bold px-6">
+      Dismiss
+    </Button>
+  </div>
+</div>
+```
+
+## API Reference
+
+This component is composed from existing primitives:
+
+| Element | Component | Purpose |
+|---------|-----------|---------|
+| Container | `div` | Card-like wrapper with border and padding |
+| Icon | `AlertCircle` (lucide-react) | Visual error indicator in a circular frame |
+| Title | `h4` | Error heading |
+| Description | `p` | Error message body |
+| Action | `Button` | Dismiss action to close the dialogue |
+
+## Accessibility
+
+The Error Dialogue follows WAI-ARIA alert patterns:
+
+- Uses semantic heading hierarchy for the error title
+- Icon is decorative and supplements the text content
+- The dismiss action is a focusable button with clear labeling
+- When used as a modal, should be paired with `AlertDialog` for focus trapping and overlay behavior
